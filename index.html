@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Find bookable and community pickleball courts across Singapore."
+    />
+    <title>DinkWhere — Singapore Pickleball Courts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="DinkWhere home">
+        <span class="brand-mark">D</span>
+        <span>DinkWhere</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a class="active" href="#courts">Find courts</a>
+        <a href="#community">Community courts</a>
+        <a href="#how">How it works</a>
+      </nav>
+      <button class="button button-dark" data-open-checkin>Check in to a court</button>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="eyebrow"><span></span> Singapore's pickleball court finder</div>
+          <h1>Less searching.<br /><em>More playing.</em></h1>
+          <p>
+            Compare courts, prices and available times across Singapore in one
+            place.
+          </p>
+
+          <form class="search-panel" id="hero-search">
+            <label>
+              <span>Where</span>
+              <span class="field-row">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12A7 7 0 1 0 5 9c0 5.9 7 12 7 12Zm0-9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
+                <input id="hero-location" type="search" placeholder="Area or venue" />
+              </span>
+            </label>
+            <label>
+              <span>Date</span>
+              <span class="field-row">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 2v3m10-3v3M4 9h16M5 4h14a1 1 0 0 1 1 1v15H4V5a1 1 0 0 1 1-1Z"/></svg>
+                <input id="hero-date" type="date" />
+              </span>
+            </label>
+            <label>
+              <span>Time</span>
+              <span class="field-row">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-13v5l3 2"/></svg>
+                <select id="hero-time">
+                  <option value="all">Any time</option>
+                  <option value="morning">Morning</option>
+                  <option value="afternoon">Afternoon</option>
+                  <option value="evening">Evening</option>
+                </select>
+              </span>
+            </label>
+            <button class="search-button" type="submit" aria-label="Search courts">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.4-4.4m2.4-5.1a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"/></svg>
+              Search
+            </button>
+          </form>
+
+          <div class="hero-trust">
+            <span><b>30+</b> venues tracked</span>
+            <span><b>6</b> booking sources</span>
+            <span><b>1</b> island-wide view</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="finder section" id="courts">
+        <div class="section-heading">
+          <div>
+            <span class="kicker">COURT AVAILABILITY</span>
+            <h2>Find your next game</h2>
+            <p>Browse bookable venues and community-reported free courts.</p>
+          </div>
+          <div class="view-toggle" aria-label="Court view">
+            <button class="selected" data-view="list">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+              List
+            </button>
+            <button data-view="map">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18-5 3V6l5-3 6 3 5-3v15l-5 3-6-3Zm0 0V3m6 18V6"/></svg>
+              Map
+            </button>
+          </div>
+        </div>
+
+        <div class="filters">
+          <div class="filter-tabs" id="type-filters">
+            <button class="selected" data-type="all">All courts</button>
+            <button data-type="ActiveSG">ActiveSG</button>
+            <button data-type="Private">Private</button>
+            <button data-type="Community">Community</button>
+          </div>
+          <label class="compact-filter">
+            <span>Area</span>
+            <select id="area-filter">
+              <option value="all">All Singapore</option>
+              <option value="Central">Central</option>
+              <option value="East">East</option>
+              <option value="North">North</option>
+              <option value="North-East">North-East</option>
+              <option value="West">West</option>
+            </select>
+          </label>
+          <label class="compact-filter">
+            <span>Features</span>
+            <select id="feature-filter">
+              <option value="all">Any</option>
+              <option value="Sheltered">Sheltered</option>
+              <option value="Indoor">Indoor</option>
+              <option value="Dedicated">Dedicated</option>
+              <option value="Free">Free to play</option>
+            </select>
+          </label>
+          <label class="available-toggle">
+            <input type="checkbox" id="available-only" />
+            <span class="switch"></span>
+            Available today
+          </label>
+        </div>
+
+        <div class="demo-notice">
+          <span>DEMO DATA</span>
+          Availability below demonstrates the product experience. Live provider
+          integrations require approved API access.
+        </div>
+
+        <div class="court-layout">
+          <div class="court-list">
+            <div class="results-meta">
+              <p><b id="result-count">0 courts</b> found</p>
+              <label>Sort by
+                <select id="sort-filter">
+                  <option value="recommended">Recommended</option>
+                  <option value="price">Lowest price</option>
+                  <option value="rating">Highest rated</option>
+                  <option value="available">Most availability</option>
+                </select>
+              </label>
+            </div>
+            <div id="court-cards"></div>
+            <button class="load-more" id="load-more">Show more courts</button>
+          </div>
+
+          <aside class="map-panel" id="map-panel">
+            <div class="map-label"><span></span> Singapore</div>
+            <div class="island-shape">
+              <span class="district west">WEST</span>
+              <span class="district central">CENTRAL</span>
+              <span class="district east">EAST</span>
+              <span class="district north">NORTH</span>
+              <div id="map-pins"></div>
+            </div>
+            <div class="map-legend">
+              <span><i class="pin-dot available"></i> Slots available</span>
+              <span><i class="pin-dot community"></i> Community court</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="community section" id="community">
+        <div class="community-copy">
+          <span class="kicker light">COMMUNITY CHECK-IN</span>
+          <h2>Is the free court<br />busy right now?</h2>
+          <p>
+            Player check-ins help everyone avoid a wasted journey. See recent
+            activity at HDB and neighbourhood courts, or report what you see.
+          </p>
+          <button class="button button-lime" data-open-checkin>Check in now</button>
+          <small>Check-ins expire automatically after 90 minutes.</small>
+        </div>
+        <div class="occupancy-card">
+          <div class="occupancy-head">
+            <div>
+              <span>LIVE COMMUNITY REPORT</span>
+              <h3>Tampines West<br />Street 81 Court</h3>
+            </div>
+            <div class="pulse"><i></i> Updated 4 min ago</div>
+          </div>
+          <div class="occupancy-state">
+            <div class="big-number">8</div>
+            <div><b>players here now</b><span>About 2 groups waiting</span></div>
+          </div>
+          <div class="capacity-bar"><span></span></div>
+          <div class="capacity-label"><span>Quiet</span><span>Busy</span><span>Full</span></div>
+          <div class="report-actions">
+            <button data-report="quieter">It's quieter</button>
+            <button data-report="accurate">Looks accurate</button>
+            <button data-report="busier">It's busier</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="how section" id="how">
+        <div class="section-heading">
+          <div>
+            <span class="kicker">BUILT FOR PLAYERS</span>
+            <h2>One search, every kind of court</h2>
+          </div>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <span class="step">01</span>
+            <h3>Compare at a glance</h3>
+            <p>See venue, price, surface, shelter and available time slots together.</p>
+          </article>
+          <article>
+            <span class="step">02</span>
+            <h3>Book at the source</h3>
+            <p>Continue to the official provider to sign in and complete payment safely.</p>
+          </article>
+          <article>
+            <span class="step">03</span>
+            <h3>Know before you go</h3>
+            <p>Community photos, court ratings and live check-ins show what to expect.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand" href="#top"><span class="brand-mark">D</span><span>DinkWhere</span></a>
+      <p>An independent directory. Not affiliated with ActiveSG, Reclub or listed venues.</p>
+      <span>Made for Singapore's pickleball community.</span>
+    </footer>
+
+    <dialog id="checkin-dialog">
+      <button class="dialog-close" aria-label="Close">×</button>
+      <span class="kicker">COMMUNITY CHECK-IN</span>
+      <h2>What’s happening at the court?</h2>
+      <p>Reports are anonymous and expire after 90 minutes.</p>
+      <form id="checkin-form">
+        <label>Court
+          <select required>
+            <option value="">Choose a community court</option>
+            <option>Tampines West Street 81 Court</option>
+            <option>Ubi Avenue 1 Hard Court</option>
+            <option>Clementi Avenue 4 Court</option>
+            <option>Yishun Ring Road Court</option>
+          </select>
+        </label>
+        <label>How many players are there?
+          <input type="number" min="0" max="30" value="4" required />
+        </label>
+        <label>Current status
+          <select required>
+            <option>Playing now</option>
+            <option>Waiting for a court</option>
+            <option>Court is empty</option>
+            <option>Court is unavailable</option>
+          </select>
+        </label>
+        <button class="button button-dark" type="submit">Submit check-in</button>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
