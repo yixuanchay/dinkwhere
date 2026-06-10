@@ -1,5 +1,6 @@
 const courts = [
   {
+    id: "activesg-farrer-park",
     name: "ActiveSG Courts @ Farrer Park",
     area: "Central",
     address: "Farrer Park, Little India",
@@ -8,48 +9,60 @@ const courts = [
     rating: 4.8,
     reviews: 34,
     price: 5,
-    availability: ["9:00", "10:00", "12:00", "18:00", "19:00"],
-    booked: ["18:00"],
+    availability: [],
+    booked: [],
     bookingUrl: "https://www.activesg.gov.sg/",
-    source: "Official venue",
+    source: "MyActiveSG+ login required",
+    availabilityStatus: "auth_required",
+    defaultAvailabilityStatus: "auth_required",
+    feedManaged: true,
     x: 48,
     y: 56,
   },
   {
+    id: "picklelize-pasir-ris",
     name: "PickleliZe",
     area: "East",
     address: "125 Pasir Ris Road",
     provider: "Private",
     providerName: "PICKLELIZE",
-    features: ["2 dedicated courts", "Sheltered", "Equipment rental"],
+    features: ["2 dedicated courts", "Sheltered", "9am–11pm"],
     rating: 4.9,
     reviews: 61,
     price: 20,
-    availability: ["14:00", "15:00", "17:00", "20:00"],
-    booked: ["17:00"],
-    bookingUrl: "https://www.picklelize.com/how-to-register",
-    source: "CourtReserve",
+    availability: [],
+    booked: [],
+    bookingUrl: "https://app.courtreserve.com/Portal/Picklelize",
+    source: "CourtReserve login required",
+    availabilityStatus: "auth_required",
+    defaultAvailabilityStatus: "auth_required",
+    feedManaged: true,
     x: 82,
     y: 47,
   },
   {
+    id: "play-pickle-punggol",
     name: "Play! Pickle @ Tebing Lane",
     area: "North-East",
-    address: "10 Tebing Lane, Punggol",
+    address: "10 Tebing Lane, Singapore 828836",
     provider: "Private",
     providerName: "PLAY! PICKLE",
-    features: ["6 dedicated courts", "Sheltered", "Coaching"],
+    features: ["6 courts", "Sheltered", "Public schedule"],
     rating: 4.7,
     reviews: 48,
-    price: 18,
-    availability: ["8:00", "11:00", "13:00", "16:00", "21:00"],
-    booked: ["11:00", "16:00"],
-    bookingUrl: "https://www.playpickle.sg/",
-    source: "Official venue",
+    price: 20,
+    availability: [],
+    booked: [],
+    bookingUrl: "https://app.courtreserve.com/Online/Reservations/Bookings/13455?sId=17508",
+    source: "CourtReserve",
+    availabilityStatus: "connecting",
+    defaultAvailabilityStatus: "unavailable",
+    feedManaged: true,
     x: 67,
     y: 21,
   },
   {
+    id: "sports-hub-kallang",
     name: "Sports Hub Pickleball Courts",
     area: "Central",
     address: "Kallang Tennis Hub & National Stadium",
@@ -67,6 +80,7 @@ const courts = [
     y: 62,
   },
   {
+    id: "performance-pickleball-expo",
     name: "Performance Pickleball @ Expo",
     area: "East",
     address: "Singapore Expo Hall 7, 9 Somapah Road",
@@ -84,6 +98,7 @@ const courts = [
     y: 64,
   },
   {
+    id: "mbp-marina-square",
     name: "MBP Sports @ Marina Square",
     area: "Central",
     address: "6 Raffles Boulevard, #04-105",
@@ -101,6 +116,7 @@ const courts = [
     y: 68,
   },
   {
+    id: "balmoral-pickleball-club",
     name: "Balmoral Pickleball Club",
     area: "Central",
     address: "32 Stevens Road, Mercure Hotel",
@@ -118,6 +134,7 @@ const courts = [
     y: 50,
   },
   {
+    id: "straits-pickle-club",
     name: "Straits Pickle Club",
     area: "West",
     address: "2 Jurong Gateway Road",
@@ -135,6 +152,7 @@ const courts = [
     y: 55,
   },
   {
+    id: "csc-changi",
     name: "Civil Service Club @ Changi",
     area: "East",
     address: "2 Netheravon Road, Level 5",
@@ -152,6 +170,7 @@ const courts = [
     y: 55,
   },
   {
+    id: "reclub-ubi",
     name: "Ubi Pickleball Club",
     area: "East",
     address: "Blk 306 Ubi Avenue 1, Level 3",
@@ -169,6 +188,7 @@ const courts = [
     y: 55,
   },
   {
+    id: "tampines-west-81",
     name: "Tampines West Street 81 Court",
     area: "East",
     address: "Neighbourhood hard court",
@@ -186,6 +206,7 @@ const courts = [
     y: 51,
   },
   {
+    id: "activesg-jurong-east",
     name: "Jurong East Sports Hall",
     area: "West",
     address: "21 Jurong East Street 31",
@@ -194,10 +215,13 @@ const courts = [
     rating: 4.2,
     reviews: 31,
     price: 7,
-    availability: ["7:00", "10:00", "14:00", "21:00"],
-    booked: ["10:00", "14:00"],
+    availability: [],
+    booked: [],
     bookingUrl: "https://www.activesg.gov.sg/",
-    source: "ActiveSG listing",
+    source: "MyActiveSG+ login required",
+    availabilityStatus: "auth_required",
+    defaultAvailabilityStatus: "auth_required",
+    feedManaged: true,
     x: 18,
     y: 47,
   },
@@ -212,6 +236,7 @@ const state = {
   time: "all",
   sort: "recommended",
   limit: 6,
+  selectedDate: "",
 };
 
 const cards = document.querySelector("#court-cards");
@@ -219,6 +244,90 @@ const resultCount = document.querySelector("#result-count");
 const mapPins = document.querySelector("#map-pins");
 const toast = document.querySelector("#toast");
 const courtLayout = document.querySelector(".court-layout");
+const dataNotice = document.querySelector("#data-notice");
+
+function formatCapturedAt(value) {
+  if (!value) return "Update time unavailable";
+  return new Intl.DateTimeFormat("en-SG", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Asia/Singapore",
+    timeZoneName: "short",
+  }).format(new Date(value));
+}
+
+function statusLabel(status) {
+  return {
+    live: "Live authorized feed",
+    cached: "Cached authorized feed",
+    snapshot: "Factual public snapshot",
+    connecting: "Connecting to provider",
+    unavailable: "Provider unavailable",
+    auth_required: "Sign in at provider to view",
+  }[status] || "Illustrative availability";
+}
+
+function applyAvailability(payload) {
+  for (const court of courts.filter((item) => item.feedManaged)) {
+    court.availability = [];
+    court.booked = [];
+    delete court.slotAvailability;
+    delete court.totalCourts;
+    delete court.snapshot;
+    court.factual = false;
+    court.availabilityStatus = court.defaultAvailabilityStatus || "unavailable";
+  }
+
+  for (const availability of payload.courts || []) {
+    const court = courts.find((item) => item.id === availability.courtId);
+    if (!court || availability.date !== state.selectedDate) continue;
+
+    court.availability = availability.slots.map((slot) => slot.start);
+    court.booked = [];
+    court.slotAvailability = Object.fromEntries(
+      availability.slots.map((slot) => [slot.start, slot.availableCourts]),
+    );
+    court.totalCourts = availability.totalCourts;
+    court.factual = true;
+    court.availabilityStatus = availability.status;
+    court.snapshot = `${statusLabel(availability.status)} · ${formatCapturedAt(availability.capturedAt)}`;
+    if (availability.sourceUrl) court.bookingUrl = availability.sourceUrl;
+  }
+
+  const liveProviders = (payload.providers || []).filter(
+    (provider) => provider.status === "live" || provider.status === "cached",
+  ).length;
+  const pendingProviders = (payload.providers || []).filter(
+    (provider) => provider.status === "needs_authorization",
+  ).length;
+  dataNotice.innerHTML = `
+    <span>DATA STATUS</span>
+    ${liveProviders} authorized feed${liveProviders === 1 ? "" : "s"} connected.
+    ${pendingProviders} provider${pendingProviders === 1 ? "" : "s"} awaiting venue credentials.
+    Factual snapshots show their capture time; remaining slots are illustrative.
+  `;
+}
+
+async function loadAvailability() {
+  try {
+    const params = new URLSearchParams({ date: state.selectedDate });
+    const response = await fetch(`/api/availability?${params}`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!response.ok) throw new Error(`Availability API returned ${response.status}`);
+    applyAvailability(await response.json());
+  } catch {
+    dataNotice.innerHTML = `
+      <span>OFFLINE MODE</span>
+      The availability API is not running. Start the site with <b>npm start</b>
+      to load authorized feeds and factual snapshots.
+    `;
+  }
+  render();
+}
 
 function timeMatches(court) {
   if (state.time === "all") return true;
@@ -261,9 +370,24 @@ function courtCard(court) {
   const slots = court.availability
     .map((slot) => {
       const booked = court.booked.includes(slot);
-      return `<button class="slot ${booked ? "booked" : ""}" ${booked ? "disabled" : ""} data-slot="${court.name}|${slot}">${slot}</button>`;
+      const availableCourts = court.slotAvailability?.[slot];
+      const label = availableCourts === undefined
+        ? slot
+        : `${slot} · ${availableCourts}/${court.totalCourts}`;
+      return `<button class="slot ${booked ? "booked" : ""}" ${booked ? "disabled" : ""} data-slot="${court.name}|${slot}">${label}</button>`;
     })
     .join("");
+  const availabilityCount = court.slotAvailability
+    ? Math.max(...Object.values(court.slotAvailability))
+    : court.availability.length - court.booked.length;
+  const availabilityLabel = court.slotAvailability
+    ? `${availabilityCount}/${court.totalCourts} courts free at best`
+    : `${availabilityCount} available`;
+  const sourceClass = court.factual ? "verified" : "";
+  const noAvailability = court.availability.length === 0;
+  const slotsMarkup = noAvailability
+    ? `<span class="no-slots">${statusLabel(court.availabilityStatus || "unavailable")}</span>`
+    : slots;
 
   return `
     <article class="court-card">
@@ -284,15 +408,22 @@ function courtCard(court) {
         <div class="tags">${court.features.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
         <div class="availability-row">
           <div class="availability-title">
-            <span>Illustrative slots today</span>
-            <b>${court.availability.length - court.booked.length} available</b>
+            <span>${
+              court.factual
+                ? "Unbooked courts by hour"
+                : court.feedManaged
+                  ? "Availability for selected date"
+                  : "Illustrative slots today"
+            }</span>
+            <b>${noAvailability ? "No data" : availabilityLabel}</b>
           </div>
-          <div class="slots">${slots}</div>
+          <div class="slots">${slotsMarkup}</div>
+          ${court.snapshot ? `<div class="snapshot-note">${court.snapshot}. Names are not collected or displayed.</div>` : ""}
         </div>
         <div class="card-foot">
           <div>
             <div class="price">${price}</div>
-            <span class="source-status"><i></i>${court.source}</span>
+            <span class="source-status ${sourceClass}"><i></i>${court.source}</span>
           </div>
           <a class="book-link" href="${court.bookingUrl}" target="${court.bookingUrl.startsWith("http") ? "_blank" : "_self"}" rel="noreferrer">View source →</a>
         </div>
@@ -358,8 +489,9 @@ document.querySelector("#hero-search").addEventListener("submit", (event) => {
   event.preventDefault();
   state.query = document.querySelector("#hero-location").value.trim();
   state.time = document.querySelector("#hero-time").value;
+  state.selectedDate = document.querySelector("#hero-date").value;
   state.limit = 12;
-  render();
+  loadAvailability();
   document.querySelector("#courts").scrollIntoView({ behavior: "smooth" });
 });
 
@@ -378,25 +510,11 @@ cards.addEventListener("click", (event) => {
   showToast(`${slot} selected at ${court}. Continue via “View source” to book.`);
 });
 
-const dialog = document.querySelector("#checkin-dialog");
-document.querySelectorAll("[data-open-checkin]").forEach((button) => {
-  button.addEventListener("click", () => dialog.showModal());
-});
-document.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
-document.querySelector("#checkin-form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  dialog.close();
-  showToast("Check-in submitted. Thanks for helping nearby players.");
-});
-
-document.querySelectorAll("[data-report]").forEach((button) => {
-  button.addEventListener("click", () => showToast("Community report recorded."));
-});
-
 const today = new Date();
 const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
   .toISOString()
   .split("T")[0];
 document.querySelector("#hero-date").value = localDate;
+state.selectedDate = localDate;
 
-render();
+loadAvailability();

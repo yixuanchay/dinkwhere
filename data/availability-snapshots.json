@@ -1,0 +1,23 @@
+{
+  "play-pickle-punggol": {
+    "courtId": "play-pickle-punggol",
+    "provider": "courtreserve",
+    "status": "snapshot",
+    "date": "2026-06-09",
+    "timezone": "Asia/Singapore",
+    "totalCourts": 6,
+    "capturedAt": "2026-06-09T12:42:12+08:00",
+    "sourceUrl": "https://app.courtreserve.com/Online/Reservations/Bookings/13455?sId=17508",
+    "slots": [
+      { "start": "13:00", "availableCourts": 5 },
+      { "start": "14:00", "availableCourts": 5 },
+      { "start": "15:00", "availableCourts": 6 },
+      { "start": "16:00", "availableCourts": 6 },
+      { "start": "17:00", "availableCourts": 6 },
+      { "start": "18:00", "availableCourts": 4 },
+      { "start": "19:00", "availableCourts": 4 },
+      { "start": "20:00", "availableCourts": 4 },
+      { "start": "21:00", "availableCourts": 4 }
+    ]
+  }
+}

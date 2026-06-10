@@ -8,26 +8,34 @@
       content="Find bookable and community pickleball courts across Singapore."
     />
     <title>DinkWhere — Singapore Pickleball Courts</title>
+    <link rel="icon" type="image/png" href="assets/dinkwhere-icon-transparent.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="assets/leaflet.css" />
+    <link rel="stylesheet" href="styles.css?v=9" />
   </head>
   <body>
     <header class="site-header">
       <a class="brand" href="#top" aria-label="DinkWhere home">
-        <span class="brand-mark">D</span>
-        <span>DinkWhere</span>
+        <img src="assets/dinkwhere-logo-transparent.png" alt="DinkWhere" />
       </a>
-      <nav aria-label="Main navigation">
-        <a class="active" href="#courts">Find courts</a>
-        <a href="#community">Community courts</a>
-        <a href="#how">How it works</a>
+      <nav class="court-nav" aria-label="Court categories">
+        <a class="active" href="#courts" data-court-nav="paid">
+          <span>Paid courts</span>
+          <small>Bookings & availability</small>
+        </a>
+        <a href="#community-map" data-court-nav="free">
+          <span>Free courts</span>
+          <small>HDB & community map</small>
+        </a>
       </nav>
-      <button class="button button-dark" data-open-checkin>Check in to a court</button>
+      <div class="account-actions">
+        <button class="button button-dark" id="account-button" type="button">Sign in</button>
+      </div>
     </header>
 
     <main id="top">
@@ -136,10 +144,9 @@
           </label>
         </div>
 
-        <div class="demo-notice">
-          <span>DEMO DATA</span>
-          Availability below demonstrates the product experience. Live provider
-          integrations require approved API access.
+        <div class="demo-notice" id="data-notice">
+          <span>DATA STATUS</span>
+          Connecting to provider feeds and factual snapshots…
         </div>
 
         <div class="court-layout">
@@ -176,36 +183,78 @@
         </div>
       </section>
 
-      <section class="community section" id="community">
-        <div class="community-copy">
-          <span class="kicker light">COMMUNITY CHECK-IN</span>
-          <h2>Is the free court<br />busy right now?</h2>
-          <p>
-            Player check-ins help everyone avoid a wasted journey. See recent
-            activity at HDB and neighbourhood courts, or report what you see.
-          </p>
-          <button class="button button-lime" data-open-checkin>Check in now</button>
-          <small>Check-ins expire automatically after 90 minutes.</small>
-        </div>
-        <div class="occupancy-card">
-          <div class="occupancy-head">
-            <div>
-              <span>LIVE COMMUNITY REPORT</span>
-              <h3>Tampines West<br />Street 81 Court</h3>
+      <section class="community-explorer section" id="community-map">
+        <div class="section-heading community-heading">
+          <div>
+            <span class="kicker">FREE & COMMUNITY COURTS</span>
+            <h2>Explore hard courts across Singapore</h2>
+            <p>
+              Start with mapped public court candidates, then use player photos,
+              reviews and live reports to confirm pickleball suitability.
+            </p>
+          </div>
+          <div class="community-heading-actions">
+            <button class="button button-lime" id="add-court-button" type="button">+ Add a court</button>
+            <div class="dataset-count">
+              <b id="community-count">855</b>
+              <span>mapped candidates</span>
             </div>
-            <div class="pulse"><i></i> Updated 4 min ago</div>
           </div>
-          <div class="occupancy-state">
-            <div class="big-number">8</div>
-            <div><b>players here now</b><span>About 2 groups waiting</span></div>
+        </div>
+
+        <div class="community-source">
+          <b>Community-verifiable dataset</b>
+          Imported locations come from OpenStreetMap public sports pitches, while
+          player-added courts are clearly labelled. Access and pickleball suitability
+          must still be confirmed by the community.
+        </div>
+
+        <div class="community-filters">
+          <label>
+            <span>Search</span>
+            <input id="community-search" type="search" placeholder="Town, MRT or court name" />
+          </label>
+          <label>
+            <span>Town</span>
+            <select id="community-town"><option value="all">All towns</option></select>
+          </label>
+          <label>
+            <span>Court type</span>
+            <select id="community-type">
+              <option value="all">All court types</option>
+              <option value="Basketball court">Basketball courts</option>
+              <option value="Badminton court">Badminton courts</option>
+              <option value="Multipurpose court">Multipurpose courts</option>
+              <option value="Dedicated pickleball court">Dedicated pickleball courts</option>
+            </select>
+          </label>
+          <label>
+            <span>Live status</span>
+            <select id="community-status">
+              <option value="all">Any status</option>
+              <option value="available">Reported available</option>
+              <option value="in_use">Reported in use</option>
+              <option value="unknown">No recent report</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="community-map-layout">
+          <div class="real-map-wrap">
+            <div id="community-map-canvas" aria-label="Map of community hard courts"></div>
+            <div class="real-map-legend">
+              <span><i class="status-dot available"></i> Available</span>
+              <span><i class="status-dot in-use"></i> In use</span>
+              <span><i class="status-dot unknown"></i> No recent report</span>
+            </div>
           </div>
-          <div class="capacity-bar"><span></span></div>
-          <div class="capacity-label"><span>Quiet</span><span>Busy</span><span>Full</span></div>
-          <div class="report-actions">
-            <button data-report="quieter">It's quieter</button>
-            <button data-report="accurate">Looks accurate</button>
-            <button data-report="busier">It's busier</button>
-          </div>
+          <aside class="community-results">
+            <div class="community-results-head">
+              <b id="community-result-count">Loading courts…</b>
+              <span>Click a pin or court</span>
+            </div>
+            <div id="community-court-list"></div>
+          </aside>
         </div>
       </section>
 
@@ -237,42 +286,36 @@
     </main>
 
     <footer>
-      <a class="brand" href="#top"><span class="brand-mark">D</span><span>DinkWhere</span></a>
+      <a class="brand footer-brand" href="#top">
+        <img src="assets/dinkwhere-logo.png" alt="DinkWhere" />
+      </a>
       <p>An independent directory. Not affiliated with ActiveSG, Reclub or listed venues.</p>
       <span>Made for Singapore's pickleball community.</span>
     </footer>
 
-    <dialog id="checkin-dialog">
-      <button class="dialog-close" aria-label="Close">×</button>
-      <span class="kicker">COMMUNITY CHECK-IN</span>
-      <h2>What’s happening at the court?</h2>
-      <p>Reports are anonymous and expire after 90 minutes.</p>
-      <form id="checkin-form">
-        <label>Court
-          <select required>
-            <option value="">Choose a community court</option>
-            <option>Tampines West Street 81 Court</option>
-            <option>Ubi Avenue 1 Hard Court</option>
-            <option>Clementi Avenue 4 Court</option>
-            <option>Yishun Ring Road Court</option>
-          </select>
-        </label>
-        <label>How many players are there?
-          <input type="number" min="0" max="30" value="4" required />
-        </label>
-        <label>Current status
-          <select required>
-            <option>Playing now</option>
-            <option>Waiting for a court</option>
-            <option>Court is empty</option>
-            <option>Court is unavailable</option>
-          </select>
-        </label>
-        <button class="button button-dark" type="submit">Submit check-in</button>
-      </form>
+    <dialog id="community-court-dialog" class="court-dialog">
+      <button class="dialog-close" data-close-community aria-label="Close">×</button>
+      <div id="community-dialog-content"></div>
+    </dialog>
+
+    <dialog id="account-dialog" class="account-dialog">
+      <button class="dialog-close" data-close-account aria-label="Close">×</button>
+      <div id="account-dialog-content"></div>
+    </dialog>
+
+    <dialog id="profile-dialog" class="profile-dialog">
+      <button class="dialog-close" data-close-profile aria-label="Close">×</button>
+      <div id="profile-dialog-content"></div>
+    </dialog>
+
+    <dialog id="add-court-dialog" class="add-court-dialog">
+      <button class="dialog-close" data-close-add-court aria-label="Close">×</button>
+      <div id="add-court-content"></div>
     </dialog>
 
     <div class="toast" id="toast" role="status"></div>
-    <script src="app.js"></script>
+    <script src="app.js?v=3"></script>
+    <script src="assets/leaflet.js"></script>
+    <script src="community.js?v=10"></script>
   </body>
 </html>

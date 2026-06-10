@@ -1,0 +1,18 @@
+{
+  "name": "dinkwhere",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Singapore pickleball court availability directory",
+  "scripts": {
+    "start": "node server.js",
+    "enrich:addresses": "node scripts/enrich-community-courts.js",
+    "check": "node --check app.js && node --check community.js && node --check server.js && node --check api/index.js && node --check lib/database.js && node --check lib/postgres-database.js && node --check lib/firebase-auth.js && node --check scripts/build-community-courts.js && node --check scripts/enrich-community-courts.js && node --test"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.4.0",
+    "pg": "^8.21.0"
+  }
+}

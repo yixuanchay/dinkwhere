@@ -1,0 +1,40 @@
+{
+  "providers": [
+    {
+      "id": "picklelize-courtreserve",
+      "platform": "courtreserve",
+      "adapter": "normalized-json",
+      "url": "https://venue-middleware.example/availability?date={date}",
+      "auth": {
+        "type": "basic",
+        "username": "env:PICKLELIZE_API_USERNAME",
+        "password": "env:PICKLELIZE_API_PASSWORD"
+      },
+      "courtIds": {
+        "courtreserve-location-id": "picklelize-pasir-ris"
+      }
+    },
+    {
+      "id": "playtomic-singapore",
+      "platform": "playtomic",
+      "adapter": "normalized-json",
+      "url": "https://partner-feed.example/playtomic",
+      "dateQueryParam": "local_date",
+      "auth": {
+        "type": "bearer",
+        "token": "env:PLAYTOMIC_PARTNER_TOKEN"
+      }
+    },
+    {
+      "id": "venue-webhook-feed",
+      "platform": "custom",
+      "adapter": "normalized-json",
+      "url": "https://venue.example/dinkwhere/availability/{date}",
+      "auth": {
+        "type": "header",
+        "name": "X-DinkWhere-Key",
+        "value": "env:VENUE_FEED_KEY"
+      }
+    }
+  ]
+}
