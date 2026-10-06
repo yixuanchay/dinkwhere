@@ -243,7 +243,6 @@ h2 { font: 800 clamp(34px, 4vw, 52px)/1.06 "Manrope", sans-serif; letter-spacing
 .day-full { font-size: 12px; color: var(--muted); padding: 8px 0; }
 .availability-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px; }
 .feed-note { font-size: 10px; color: var(--muted); }
-.feed-note.sample { color: #9a5b00; font-weight: 700; }
 .more-days { border: 1px solid var(--line); background: white; padding: 6px 10px; font-size: 11px; font-weight: 800; }
 .more-days:hover { border-color: var(--ink); }
 .no-feed { display: flex; align-items: center; gap: 10px; padding: 4px 0; color: var(--muted); font-size: 12px; }

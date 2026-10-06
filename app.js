@@ -13,6 +13,7 @@ const state = {
   platform: "all",
   feature: "all",
   publicOnly: false,
+  openOnly: false,
   query: "",
   time: "all",
   sort: "recommended",
@@ -107,7 +108,6 @@ function statusLabel(status) {
     live: "Live",
     cached: "Recently updated",
     snapshot: "Snapshot",
-    sample: "Sample data",
   }[status] || "Unverified";
 }
 
@@ -164,6 +164,7 @@ function filteredVenues() {
       (state.platform === "all" || venue.platform === state.platform) &&
       (state.feature === "all" || (venue.setting || []).includes(state.feature)) &&
       (!state.publicOnly || !isMembersOnly(venue)) &&
+      (!state.openOnly || hasOpenSlot(venue)) &&
       (!query || searchable.toLowerCase().includes(query))
     );
   });
@@ -489,11 +490,16 @@ function renderSources() {
 
 function renderNotice() {
   const liveVenues = venues.filter((venue) => availability.has(venue.id)).length;
-  const connected = providerStatuses.filter((provider) => ["live", "cached"].includes(provider.status)).length;
+  const configured = providerStatuses.filter((provider) => provider.configured);
+  const down = configured.filter((provider) => provider.status === "unavailable");
+  const names = (list) => list.map((provider) => platforms[provider.platform]?.name || provider.platform).join(", ");
+  const live = liveVenues
+    ? `${liveVenues} venue${liveVenues === 1 ? "" : "s"} show live open times for the next ${DAYS_AHEAD} days.`
+    : "No venue is sharing live open times right now.";
   dataNotice.innerHTML = `
     <span>DATA STATUS</span>
-    ${venues.length} venues across ${new Set(venues.map((venue) => venue.platform)).size} booking systems.
-    ${liveVenues ? `${liveVenues} show open times for the next ${DAYS_AHEAD} days from ${connected || "saved"} feed${connected === 1 ? "" : "s"}.` : "No live feeds connected yet."}
+    ${venues.length} venues across ${new Set(venues.map((venue) => venue.platform)).size} booking systems. ${live}
+    ${down.length ? `Couldn't reach ${escapeHtml(names(down))} just now; those venues link to their booking pages.` : ""}
     Every other venue links straight to its booking page.
   `;
 }
@@ -504,7 +510,9 @@ function render() {
   resultCount.textContent = `${all.length} venue${all.length === 1 ? "" : "s"}`;
   cards.innerHTML = visible.length
     ? visible.map(venueCard).join("")
-    : `<div class="empty-state"><b>No venues match these filters.</b><br />Try another area or booking system.</div>`;
+    : state.openOnly
+      ? `<div class="empty-state"><b>No open courts found for these dates.</b><br />${availability.size ? "Every connected venue is fully booked. Try other dates, or turn off “Open courts only” to see venues you can check directly." : "No booking system is sharing live times right now. Turn off “Open courts only” to see every venue and its booking link."}</div>`
+      : `<div class="empty-state"><b>No venues match these filters.</b><br />Try another area or booking system.</div>`;
   document.querySelector("#load-more").hidden = visible.length >= all.length;
   renderDateStrip();
   renderMap(all);
@@ -612,6 +620,11 @@ bindSelect("#area-filter", "area");
 bindSelect("#platform-filter", "platform");
 bindSelect("#feature-filter", "feature");
 bindSelect("#sort-filter", "sort");
+document.querySelector("#open-only").addEventListener("change", (event) => {
+  state.openOnly = event.target.checked;
+  state.limit = 8;
+  render();
+});
 document.querySelector("#public-only").addEventListener("change", (event) => {
   state.publicOnly = event.target.checked;
   render();

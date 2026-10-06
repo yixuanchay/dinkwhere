@@ -78,7 +78,10 @@ After deployment:
    upload before sharing the URL.
 
 Vercel's function filesystem is not persistent. Do not set `DATABASE_PATH` for
-production or attempt to store production uploads under `uploads/`.
+production or attempt to store production uploads under `uploads/`. If
+`DATABASE_URL` is missing on Vercel, the site still starts but keeps accounts,
+reviews and reports in a temporary SQLite file under `/tmp` that is lost when
+the instance recycles, so connect Neon before inviting users.
 
 ## Current scope
 
@@ -105,16 +108,13 @@ points at an entry in the file's `platforms` map. The map records how that
 booking system can be connected:
 
 - `live`: DinkWhere can read open slots itself. Playtomic publishes open slots
-  per club without sign-in, and `lib/provider-engine.js` has a `playtomic`
-  adapter for it. To switch it on, run the following from a machine with
-  internet access:
-
-  ```bash
-  npm run playtomic:tenants
-  ```
-
-  This looks up each Playtomic venue's tenant ID and writes
-  `data/providers.json`. The server loads that file automatically on start.
+  per club without sign-in. The server looks up each Playtomic venue's club ID
+  by name on its first availability request, then reads open slots for the
+  next 7 days; no setup is needed. To pin IDs instead (or if a name lookup
+  misses), run `npm run playtomic:tenants` to write `data/providers.json`.
+  Set `PLAYTOMIC_DISCOVERY=off` to turn the automatic lookup off. When
+  Playtomic can't be reached, the site says so and shows no times rather than
+  stale or invented ones.
 - PlayByPoint has an official API (developer preview). With an API key issued
   by the venue, the `playbypoint` adapter asks for free courts hour by hour.
   See the example in `data/providers.example.json`.

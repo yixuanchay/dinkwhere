@@ -150,7 +150,7 @@ Prices are SGD per court-hour at the cheapest public (or member) rate. Confirm d
 
 ## What "live" means for each system
 
-- **Playtomic**: open slots per club are published without sign-in. The `playtomic` adapter in `lib/provider-engine.js` turns them into free-court counts per hour. Run `npm run playtomic:tenants` from a machine with internet access to look up each club ID and write `data/providers.json`; the server picks it up on restart.
+- **Playtomic**: open slots per club are published without sign-in. The server finds each club's ID by name on first use and turns open slots into free-court counts per hour for the next 7 days. `npm run playtomic:tenants` can pin the IDs in `data/providers.json` instead.
 - **PlayByPoint**: an official API (developer preview, `https://api.playbypoint.com/v1`) lists free courts for a time window. The `playbypoint` adapter asks hour by hour with a venue-issued API key and the `X-PBP-Facility-Id` header. It was built from the published reference and still needs a first run against a real key.
 - **CourtReserve**: an official API (HTTP Basic auth with an `Org_…` username) exists for venues on the Scale or Enterprise plans. Ask the venue for read-only credentials or a feed that follows `docs/provider-feed-contract.md`.
 - **Rezerv, Smashing.sg, The Kallang**: schedules sit behind a login or have no public API. Ask the venue for a feed that follows `docs/provider-feed-contract.md`.

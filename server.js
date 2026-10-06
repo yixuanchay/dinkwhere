@@ -8,6 +8,7 @@ const { verifyFirebaseIdToken } = require("./lib/firebase-auth");
 const {
   ProviderEngine,
   dateRange,
+  parseProviderConfig,
   readProviderConfig,
   todayInTimezone,
   validDate,
@@ -24,14 +25,21 @@ const venues = JSON.parse(fs.readFileSync(path.join(root, "data", "venues.json")
 const communityCourtsPath = path.join(root, "data", "community-courts.json");
 const communityCourts = JSON.parse(fs.readFileSync(communityCourtsPath, "utf8"));
 const importedCommunityCourtIds = new Set(communityCourts.courts.map((court) => court.id));
-const uploadDirectory = path.join(root, "uploads");
+// Vercel's filesystem is read-only except /tmp. Without DATABASE_URL the site
+// still runs there, but accounts and reviews last only as long as the instance.
+const ephemeralStorage = Boolean(process.env.VERCEL) && !process.env.DATABASE_URL;
+if (ephemeralStorage) {
+  console.warn("DATABASE_URL is not set; using temporary SQLite storage in /tmp.");
+}
+const uploadDirectory = ephemeralStorage ? "/tmp/dinkwhere-uploads" : path.join(root, "uploads");
 const database = process.env.DATABASE_URL
   ? new PostgresDinkWhereDatabase({ connectionString: process.env.DATABASE_URL })
   : new DinkWhereDatabase({
-      databasePath: process.env.DATABASE_PATH || path.join(root, "data", "dinkwhere.sqlite"),
+      databasePath: process.env.DATABASE_PATH ||
+        (ephemeralStorage ? "/tmp/dinkwhere.sqlite" : path.join(root, "data", "dinkwhere.sqlite")),
       uploadDirectory,
     });
-const providers = readProviderConfig(root);
+const providers = withPlaytomicDiscovery(readProviderConfig(root), venues.venues);
 const engine = new ProviderEngine({ providers, refreshMs });
 const SESSION_COOKIE = "dinkwhere_session";
 const MAX_JSON_BYTES = 1_400_000;
@@ -43,6 +51,30 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID || "",
 };
 const firebaseEnabled = Object.values(firebaseConfig).every(Boolean);
+
+// Every Playtomic venue gets live times without setup: unless a config already
+// maps it to a tenant, its club ID is looked up by name on first request.
+function withPlaytomicDiscovery(configured, venueList) {
+  if (process.env.PLAYTOMIC_DISCOVERY === "off") return configured;
+  const playtomicVenues = venueList.filter((venue) => venue.platform === "playtomic");
+  const existing = configured.find((provider) => provider.adapter === "playtomic");
+  const mapped = new Set(Object.values(existing?.tenants || {}).map((tenant) => tenant.courtId));
+  const discover = playtomicVenues
+    .filter((venue) => !mapped.has(venue.id))
+    .map((venue) => ({
+      courtId: venue.id,
+      name: venue.playtomicName || venue.name,
+      totalCourts: venue.courts,
+      sourceUrl: venue.bookingUrl,
+    }));
+  if (!discover.length) return configured;
+  if (existing) {
+    existing.discover = [...(existing.discover || []), ...discover];
+    existing.enabled = existing.enabled !== false;
+    return configured;
+  }
+  return [...configured, ...parseProviderConfig([{ id: "playtomic", adapter: "playtomic", discover }])];
+}
 
 function loadEnv(file) {
   if (!fs.existsSync(file)) return;

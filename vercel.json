@@ -3,15 +3,7 @@
   "functions": {
     "api/index.js": {
       "maxDuration": 30,
-      "includeFiles": [
-        "index.html",
-        "app.js",
-        "community.js",
-        "map.js",
-        "styles.css",
-        "assets/**",
-        "data/*.json"
-      ]
+      "includeFiles": "{index.html,app.js,community.js,map.js,styles.css,assets/**,data/*.json}"
     }
   },
   "rewrites": [

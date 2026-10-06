@@ -6,6 +6,7 @@ const {
   authorizationHeaders,
   countPlaybypointCourts,
   dateRange,
+  matchPlaytomicTenant,
   normalizeFeed,
   normalizePlaytomic,
   parseProviderConfig,
@@ -239,4 +240,62 @@ test("asks PlayByPoint for each opening hour with the facility header", async ()
   assert.equal(calls[0].headers.Authorization, "Bearer secret");
   assert.equal(court.courtId, "straits-pickle-club");
   assert.equal(court.slots.reduce((sum, slot) => sum + slot.availableCourts, 0), 2);
+});
+
+test("matches Playtomic clubs by name", () => {
+  const tenants = [
+    { tenant_id: "a", tenant_name: "TSA @ Jalan Kayu" },
+    { tenant_id: "b", tenant_name: "Pickle Padel Movement (By Future Sports Academies)" },
+    { tenant_id: "c", tenant_name: "the padel co. - Changi" },
+  ];
+  assert.equal(matchPlaytomicTenant("TSA @ Jalan Kayu", tenants).tenant_id, "a");
+  assert.equal(matchPlaytomicTenant("Pickle Padel Movement", tenants).tenant_id, "b");
+  assert.equal(matchPlaytomicTenant("the padel co. – Changi", tenants).tenant_id, "c");
+  assert.equal(matchPlaytomicTenant("Balmoral Lifestyle Club", tenants), null);
+});
+
+test("looks up Playtomic tenant IDs once, then reads availability", async () => {
+  const requests = [];
+  const engine = new ProviderEngine({
+    providers: parseProviderConfig([{
+      id: "playtomic",
+      adapter: "playtomic",
+      discover: [{ courtId: "tsa-jalan-kayu", name: "TSA @ Jalan Kayu", totalCourts: 10, sourceUrl: "https://playtomic.com/clubs/tsa-jalan-kayu" }],
+    }]),
+    refreshMs: 60000,
+    fetchImpl: async (url) => {
+      const parsed = new URL(url);
+      requests.push(parsed.pathname);
+      if (parsed.pathname === "/v1/tenants") {
+        return { ok: true, json: async () => [{ tenant_id: "tenant-9", tenant_name: "TSA @ Jalan Kayu" }] };
+      }
+      assert.equal(parsed.searchParams.get("tenant_id"), "tenant-9");
+      const date = parsed.searchParams.get("local_start_min").slice(0, 10);
+      return { ok: true, json: async () => [{ resource_id: "court-1", start_date: date, slots: [{ start_time: "08:00:00", duration: 60 }] }] };
+    },
+  });
+  const dates = dateRange("2026-10-06", 2);
+  await engine.refreshRange(dates);
+  const payload = engine.rangePayload(dates);
+  assert.equal(requests.filter((path) => path === "/v1/tenants").length, 1);
+  assert.deepEqual(payload.courts.map((court) => [court.courtId, court.date, court.totalCourts]), [
+    ["tsa-jalan-kayu", "2026-10-06", 10],
+    ["tsa-jalan-kayu", "2026-10-07", 10],
+  ]);
+  assert.equal(payload.courts[0].sourceUrl, "https://playtomic.com/clubs/tsa-jalan-kayu");
+});
+
+test("reports Playtomic as unavailable when the club lookup fails", async () => {
+  const engine = new ProviderEngine({
+    providers: parseProviderConfig([{ id: "playtomic", adapter: "playtomic", discover: [{ courtId: "tsa-expo", name: "TSA @ EXPO" }] }]),
+    refreshMs: 60000,
+    fetchImpl: async () => ({ ok: false, status: 403, headers: { get: () => null } }),
+  });
+  await engine.refreshDate("2026-10-06");
+  assert.equal(engine.payload("2026-10-06").providers[0].status, "unavailable");
+  // A retry inside the back-off window must not report an empty "live" feed.
+  await engine.refreshDate("2026-10-07");
+  const payload = engine.payload("2026-10-07");
+  assert.equal(payload.providers[0].status, "unavailable");
+  assert.equal(payload.courts.length, 0);
 });
