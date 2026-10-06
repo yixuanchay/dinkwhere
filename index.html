@@ -83,8 +83,8 @@
           </form>
 
           <div class="hero-trust">
-            <span><b>30+</b> venues tracked</span>
-            <span><b>6</b> booking sources</span>
+            <span><b id="venue-total">45</b> venues tracked</span>
+            <span><b id="platform-total">13</b> booking systems</span>
             <span><b>1</b> island-wide view</span>
           </div>
         </div>
@@ -95,7 +95,7 @@
           <div>
             <span class="kicker">COURT AVAILABILITY</span>
             <h2>Find your next game</h2>
-            <p>Browse bookable venues and community-reported free courts.</p>
+            <p>Every bookable pickleball venue in Singapore, with live open times where the booking system shares them.</p>
           </div>
           <div class="view-toggle" aria-label="Court view">
             <button class="selected" data-view="list">
@@ -106,15 +106,20 @@
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18-5 3V6l5-3 6 3 5-3v15l-5 3-6-3Zm0 0V3m6 18V6"/></svg>
               Map
             </button>
+            <button data-view="timeline">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v15H4zM4 10h16M9 5v15M15 5v15"/></svg>
+              Timeline
+            </button>
           </div>
         </div>
 
         <div class="filters">
           <div class="filter-tabs" id="type-filters">
-            <button class="selected" data-type="all">All courts</button>
+            <button class="selected" data-type="all">All venues</button>
             <button data-type="ActiveSG">ActiveSG</button>
             <button data-type="Private">Private</button>
-            <button data-type="Community">Community</button>
+            <button data-type="Clubs">Clubs</button>
+            <button data-type="Community">Community clubs</button>
           </div>
           <label class="compact-filter">
             <span>Area</span>
@@ -128,59 +133,93 @@
             </select>
           </label>
           <label class="compact-filter">
+            <span>Booking system</span>
+            <select id="platform-filter">
+              <option value="all">Any</option>
+            </select>
+          </label>
+          <label class="compact-filter">
             <span>Features</span>
             <select id="feature-filter">
               <option value="all">Any</option>
-              <option value="Sheltered">Sheltered</option>
               <option value="Indoor">Indoor</option>
-              <option value="Dedicated">Dedicated</option>
-              <option value="Free">Free to play</option>
+              <option value="Air-conditioned">Air-conditioned</option>
+              <option value="Sheltered">Sheltered</option>
+              <option value="Outdoor">Outdoor</option>
+              <option value="Dedicated">Dedicated courts</option>
+              <option value="Rooftop">Rooftop</option>
             </select>
           </label>
           <label class="available-toggle">
-            <input type="checkbox" id="available-only" />
+            <input type="checkbox" id="public-only" />
             <span class="switch"></span>
-            Available today
+            Open to public
           </label>
         </div>
 
         <div class="demo-notice" id="data-notice">
           <span>DATA STATUS</span>
-          Connecting to provider feeds and factual snapshots…
+          Loading venues and availability feeds…
         </div>
 
-        <div class="court-layout">
+        <div class="court-layout" id="court-layout">
           <div class="court-list">
             <div class="results-meta">
-              <p><b id="result-count">0 courts</b> found</p>
+              <p><b id="result-count">0 venues</b> found</p>
               <label>Sort by
                 <select id="sort-filter">
                   <option value="recommended">Recommended</option>
                   <option value="price">Lowest price</option>
-                  <option value="rating">Highest rated</option>
-                  <option value="available">Most availability</option>
+                  <option value="courts">Most courts</option>
+                  <option value="name">Name</option>
                 </select>
               </label>
             </div>
             <div id="court-cards"></div>
-            <button class="load-more" id="load-more">Show more courts</button>
+            <button class="load-more" id="load-more">Show more venues</button>
           </div>
 
           <aside class="map-panel" id="map-panel">
-            <div class="map-label"><span></span> Singapore</div>
-            <div class="island-shape">
-              <span class="district west">WEST</span>
-              <span class="district central">CENTRAL</span>
-              <span class="district east">EAST</span>
-              <span class="district north">NORTH</span>
-              <div id="map-pins"></div>
-            </div>
+            <div id="venue-map" aria-label="Map of pickleball venues"></div>
             <div class="map-legend">
-              <span><i class="pin-dot available"></i> Slots available</span>
-              <span><i class="pin-dot community"></i> Community court</span>
+              <span><i class="pin-dot live"></i> Live times</span>
+              <span><i class="pin-dot public"></i> Book online</span>
+              <span><i class="pin-dot members"></i> Members / club</span>
             </div>
           </aside>
         </div>
+
+        <div class="timeline-panel" id="timeline-panel" hidden>
+          <div class="timeline-head">
+            <div>
+              <h3>Open courts by hour</h3>
+              <p id="timeline-date"></p>
+            </div>
+            <div class="timeline-key">
+              <span><i class="cell-key none"></i> Full</span>
+              <span><i class="cell-key some"></i> Some free</span>
+              <span><i class="cell-key most"></i> Mostly free</span>
+            </div>
+          </div>
+          <div class="timeline-scroll"><div id="timeline-grid"></div></div>
+          <div class="timeline-direct">
+            <h4>Check these directly</h4>
+            <p>These venues don't share live times yet. Each link opens the right booking page.</p>
+            <div id="timeline-direct-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="booking-sources section" id="booking-sources">
+        <div class="section-heading">
+          <div>
+            <span class="kicker">WHERE TO BOOK</span>
+            <h2>Every booking system in one place</h2>
+            <p>Every system Singapore venues use for pickleball bookings, with how DinkWhere connects to each.</p>
+          </div>
+        </div>
+        <div class="source-grid" id="source-grid"></div>
+        <div class="social-play" id="social-play"></div>
       </section>
 
       <section class="community-explorer section" id="community-map">
@@ -314,8 +353,8 @@
     </dialog>
 
     <div class="toast" id="toast" role="status"></div>
-    <script src="app.js?v=3"></script>
     <script src="assets/leaflet.js"></script>
+    <script src="app.js?v=4"></script>
     <script src="community.js?v=10"></script>
   </body>
 </html>

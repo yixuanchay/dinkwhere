@@ -19,6 +19,7 @@ const port = Number(process.env.PORT || 4173);
 const refreshMs = Math.max(Number(process.env.AVAILABILITY_REFRESH_MS || 300000), 60000);
 const snapshotPath = path.join(root, "data", "availability-snapshots.json");
 const snapshots = JSON.parse(fs.readFileSync(snapshotPath, "utf8"));
+const venues = JSON.parse(fs.readFileSync(path.join(root, "data", "venues.json"), "utf8"));
 const communityCourtsPath = path.join(root, "data", "community-courts.json");
 const communityCourts = JSON.parse(fs.readFileSync(communityCourtsPath, "utf8"));
 const importedCommunityCourtIds = new Set(communityCourts.courts.map((court) => court.id));
@@ -257,6 +258,10 @@ async function requestHandler(request, response) {
       }
       await engine.refreshDate(date);
       sendJson(response, 200, engine.payload(date, snapshots));
+      return;
+    }
+    if (request.method === "GET" && url.pathname === "/api/venues") {
+      sendJson(response, 200, venues);
       return;
     }
     if (request.method === "GET" && url.pathname === "/api/health") {

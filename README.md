@@ -82,26 +82,47 @@ production or attempt to store production uploads under `uploads/`.
 
 ## Current scope
 
-- Search and filter a curated Singapore court directory.
-- Compare illustrative time slots, prices, features, and source platforms.
-- Link users to the official booking source to complete a reservation.
-- Demonstrate anonymous, expiring community check-ins for free courts.
-- Responsive list and map views.
+- A directory of 49 bookable pickleball venues across 13 booking systems
+  (`data/venues.json`, served at `GET /api/venues`). The full list is in
+  `docs/booking-sources.md`.
+- List, map and timeline views. The timeline shows free courts per hour for
+  every venue with a live feed, and lists every other venue with a direct link
+  to its booking page.
+- A "Where to book" section describing each booking system and how DinkWhere
+  connects to it.
 - An island-wide community hard-court candidate map seeded from OpenStreetMap.
 - Court profiles with reviews, photos, suitability fields, and live reports.
 
-Availability is intentionally labeled as demo data. A production release should
-only display live inventory through provider-approved APIs or partnerships.
-Private booker identity must never be collected or exposed.
+DinkWhere never books on a player's behalf and never shows who booked a court.
+It shows aggregate free-court counts and sends players to the official booking
+page.
 
-The Play! Pickle Punggol card includes an anonymized snapshot of the public
-CourtReserve schedule captured on 9 June 2026 at 12:42 SGT. It reports only the
-number of unbooked courts per hour and intentionally excludes customer names.
-This snapshot is not a live integration and will become stale.
+## Venue directory and live availability
 
-The site now includes a local availability API with provider adapters, caching,
-freshness states, and snapshot fallback. CourtReserve and other provider
-credentials must be issued or approved by the relevant venue.
+Venue details live in `data/venues.json`. Each venue has a `platform` key that
+points at an entry in the file's `platforms` map. The map records how that
+booking system can be connected:
+
+- `live`: DinkWhere can read open slots itself. Playtomic publishes open slots
+  per club without sign-in, and `lib/provider-engine.js` has a `playtomic`
+  adapter for it. To switch it on, run the following from a machine with
+  internet access:
+
+  ```bash
+  npm run playtomic:tenants
+  ```
+
+  This looks up each Playtomic venue's tenant ID and writes
+  `data/providers.json`. The server loads that file automatically on start.
+- `venue_feed`: CourtReserve, PlayByPoint, Rezerv, Smashing.sg and The Kallang
+  have no public API. Live counts need a feed approved by the venue, following
+  `docs/provider-feed-contract.md`.
+- `deep_link`: MyActiveSG+ needs Singpass login and its terms prohibit
+  automated access, so the site links to the ActiveSG pickleball venue list.
+  Club portals, onePA, apps and phone-only venues are also linked directly.
+
+The Play! Pickle Punggol snapshot in `data/availability-snapshots.json` is still
+served for its capture date, 9 June 2026.
 
 ## Persistent community backend
 

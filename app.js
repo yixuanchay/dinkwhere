@@ -1,451 +1,425 @@
-const courts = [
-  {
-    id: "activesg-farrer-park",
-    name: "ActiveSG Courts @ Farrer Park",
-    area: "Central",
-    address: "Farrer Park, Little India",
-    provider: "ActiveSG",
-    features: ["8 dedicated courts", "Sheltered", "Balloting"],
-    rating: 4.8,
-    reviews: 34,
-    price: 5,
-    availability: [],
-    booked: [],
-    bookingUrl: "https://www.activesg.gov.sg/",
-    source: "MyActiveSG+ login required",
-    availabilityStatus: "auth_required",
-    defaultAvailabilityStatus: "auth_required",
-    feedManaged: true,
-    x: 48,
-    y: 56,
-  },
-  {
-    id: "picklelize-pasir-ris",
-    name: "PickleliZe",
-    area: "East",
-    address: "125 Pasir Ris Road",
-    provider: "Private",
-    providerName: "PICKLELIZE",
-    features: ["2 dedicated courts", "Sheltered", "9am–11pm"],
-    rating: 4.9,
-    reviews: 61,
-    price: 20,
-    availability: [],
-    booked: [],
-    bookingUrl: "https://app.courtreserve.com/Portal/Picklelize",
-    source: "CourtReserve login required",
-    availabilityStatus: "auth_required",
-    defaultAvailabilityStatus: "auth_required",
-    feedManaged: true,
-    x: 82,
-    y: 47,
-  },
-  {
-    id: "play-pickle-punggol",
-    name: "Play! Pickle @ Tebing Lane",
-    area: "North-East",
-    address: "10 Tebing Lane, Singapore 828836",
-    provider: "Private",
-    providerName: "PLAY! PICKLE",
-    features: ["6 courts", "Sheltered", "Public schedule"],
-    rating: 4.7,
-    reviews: 48,
-    price: 20,
-    availability: [],
-    booked: [],
-    bookingUrl: "https://app.courtreserve.com/Online/Reservations/Bookings/13455?sId=17508",
-    source: "CourtReserve",
-    availabilityStatus: "connecting",
-    defaultAvailabilityStatus: "unavailable",
-    feedManaged: true,
-    x: 67,
-    y: 21,
-  },
-  {
-    id: "sports-hub-kallang",
-    name: "Sports Hub Pickleball Courts",
-    area: "Central",
-    address: "Kallang Tennis Hub & National Stadium",
-    provider: "Private",
-    providerName: "SPORTS HUB",
-    features: ["8 courts", "From $5", "Dual-use"],
-    rating: 4.6,
-    reviews: 22,
-    price: 5,
-    availability: ["9:00", "12:00", "15:00", "18:00"],
-    booked: ["12:00"],
-    bookingUrl: "https://www.sportshub.com.sg/",
-    source: "Official venue",
-    x: 56,
-    y: 62,
-  },
-  {
-    id: "performance-pickleball-expo",
-    name: "Performance Pickleball @ Expo",
-    area: "East",
-    address: "Singapore Expo Hall 7, 9 Somapah Road",
-    provider: "Private",
-    providerName: "PERFORMANCE",
-    features: ["Dedicated courts", "Indoor", "Air-conditioned"],
-    rating: 4.8,
-    reviews: 79,
-    price: 24,
-    availability: ["10:00", "14:00", "16:00", "22:00"],
-    booked: ["14:00"],
-    bookingUrl: "https://www.playtomic.com/",
-    source: "Playtomic",
-    x: 76,
-    y: 64,
-  },
-  {
-    id: "mbp-marina-square",
-    name: "MBP Sports @ Marina Square",
-    area: "Central",
-    address: "6 Raffles Boulevard, #04-105",
-    provider: "Private",
-    providerName: "MBP SPORTS",
-    features: ["Rooftop", "Dedicated", "City centre"],
-    rating: 4.5,
-    reviews: 43,
-    price: 20,
-    availability: ["11:00", "13:00", "17:00", "19:00"],
-    booked: ["17:00", "19:00"],
-    bookingUrl: "https://mbpsports.com/",
-    source: "Official venue",
-    x: 48,
-    y: 68,
-  },
-  {
-    id: "balmoral-pickleball-club",
-    name: "Balmoral Pickleball Club",
-    area: "Central",
-    address: "32 Stevens Road, Mercure Hotel",
-    provider: "Private",
-    providerName: "BALMORAL",
-    features: ["4 dedicated courts", "Outdoor", "Hotel amenities"],
-    rating: 4.7,
-    reviews: 36,
-    price: 28,
-    availability: ["8:00", "10:00", "14:00", "18:00"],
-    booked: ["18:00"],
-    bookingUrl: "https://playtomic.io/",
-    source: "Playtomic",
-    x: 42,
-    y: 50,
-  },
-  {
-    id: "straits-pickle-club",
-    name: "Straits Pickle Club",
-    area: "West",
-    address: "2 Jurong Gateway Road",
-    provider: "Private",
-    providerName: "STRAITS",
-    features: ["3 dedicated courts", "Shaded", "Near MRT"],
-    rating: 4.6,
-    reviews: 27,
-    price: 18,
-    availability: ["9:00", "13:00", "15:00", "20:00"],
-    booked: ["13:00"],
-    bookingUrl: "https://straitspickleclub.com/",
-    source: "Official venue",
-    x: 23,
-    y: 55,
-  },
-  {
-    id: "csc-changi",
-    name: "Civil Service Club @ Changi",
-    area: "East",
-    address: "2 Netheravon Road, Level 5",
-    provider: "Private",
-    providerName: "CSC CHANGI",
-    features: ["Outdoor", "Public same-day", "Member priority"],
-    rating: 4.3,
-    reviews: 18,
-    price: 15,
-    availability: ["8:00", "10:00", "13:00", "16:00"],
-    booked: ["10:00"],
-    bookingUrl: "https://www.cscchangi.sg/",
-    source: "Phone / walk-in",
-    x: 89,
-    y: 55,
-  },
-  {
-    id: "reclub-ubi",
-    name: "Ubi Pickleball Club",
-    area: "East",
-    address: "Blk 306 Ubi Avenue 1, Level 3",
-    provider: "Community",
-    providerName: "RECLUB",
-    features: ["Indoor", "Organised play", "All levels"],
-    rating: 4.7,
-    reviews: 95,
-    price: 8,
-    availability: ["8:00", "19:00", "20:00"],
-    booked: [],
-    bookingUrl: "https://reclub.co/clubs/%40ubi-pickleball-club",
-    source: "Reclub activity",
-    x: 63,
-    y: 55,
-  },
-  {
-    id: "tampines-west-81",
-    name: "Tampines West Street 81 Court",
-    area: "East",
-    address: "Neighbourhood hard court",
-    provider: "Community",
-    providerName: "COMMUNITY",
-    features: ["Free", "Outdoor", "Community check-in"],
-    rating: 4.1,
-    reviews: 12,
-    price: 0,
-    availability: ["Now", "Later today"],
-    booked: [],
-    bookingUrl: "#community",
-    source: "Player reported",
-    x: 77,
-    y: 51,
-  },
-  {
-    id: "activesg-jurong-east",
-    name: "Jurong East Sports Hall",
-    area: "West",
-    address: "21 Jurong East Street 31",
-    provider: "ActiveSG",
-    features: ["Multi-use", "Indoor", "Public booking"],
-    rating: 4.2,
-    reviews: 31,
-    price: 7,
-    availability: [],
-    booked: [],
-    bookingUrl: "https://www.activesg.gov.sg/",
-    source: "MyActiveSG+ login required",
-    availabilityStatus: "auth_required",
-    defaultAvailabilityStatus: "auth_required",
-    feedManaged: true,
-    x: 18,
-    y: 47,
-  },
-];
+const SINGAPORE_CENTRE = [1.3521, 103.8198];
+const TIMELINE_HOURS = Array.from({ length: 17 }, (_, index) => `${String(index + 7).padStart(2, "0")}:00`);
+const TIME_WINDOWS = {
+  morning: (hour) => hour < 12,
+  afternoon: (hour) => hour >= 12 && hour < 18,
+  evening: (hour) => hour >= 18,
+};
 
 const state = {
   type: "all",
   area: "all",
+  platform: "all",
   feature: "all",
-  availableOnly: false,
+  publicOnly: false,
   query: "",
   time: "all",
   sort: "recommended",
-  limit: 6,
+  limit: 8,
   selectedDate: "",
+  view: "list",
 };
+
+let venues = [];
+let platforms = {};
+let socialPlay = [];
+let availability = new Map();
+let providerStatuses = [];
+let venueMap = null;
+let venueLayer = null;
+let mapFitted = false;
 
 const cards = document.querySelector("#court-cards");
 const resultCount = document.querySelector("#result-count");
-const mapPins = document.querySelector("#map-pins");
 const toast = document.querySelector("#toast");
-const courtLayout = document.querySelector(".court-layout");
+const courtLayout = document.querySelector("#court-layout");
+const timelinePanel = document.querySelector("#timeline-panel");
 const dataNotice = document.querySelector("#data-notice");
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  })[character]);
+}
 
 function formatCapturedAt(value) {
   if (!value) return "Update time unavailable";
   return new Intl.DateTimeFormat("en-SG", {
     day: "numeric",
     month: "short",
-    year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
     timeZone: "Asia/Singapore",
-    timeZoneName: "short",
   }).format(new Date(value));
+}
+
+function formatDate(value) {
+  return new Intl.DateTimeFormat("en-SG", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    timeZone: "Asia/Singapore",
+  }).format(new Date(`${value}T12:00:00+08:00`));
 }
 
 function statusLabel(status) {
   return {
-    live: "Live authorized feed",
-    cached: "Cached authorized feed",
-    snapshot: "Factual public snapshot",
-    connecting: "Connecting to provider",
-    unavailable: "Provider unavailable",
-    auth_required: "Sign in at provider to view",
-  }[status] || "Illustrative availability";
+    live: "Live",
+    cached: "Recently updated",
+    snapshot: "Snapshot",
+  }[status] || "Unverified";
 }
 
-function applyAvailability(payload) {
-  for (const court of courts.filter((item) => item.feedManaged)) {
-    court.availability = [];
-    court.booked = [];
-    delete court.slotAvailability;
-    delete court.totalCourts;
-    delete court.snapshot;
-    court.factual = false;
-    court.availabilityStatus = court.defaultAvailabilityStatus || "unavailable";
-  }
-
-  for (const availability of payload.courts || []) {
-    const court = courts.find((item) => item.id === availability.courtId);
-    if (!court || availability.date !== state.selectedDate) continue;
-
-    court.availability = availability.slots.map((slot) => slot.start);
-    court.booked = [];
-    court.slotAvailability = Object.fromEntries(
-      availability.slots.map((slot) => [slot.start, slot.availableCourts]),
-    );
-    court.totalCourts = availability.totalCourts;
-    court.factual = true;
-    court.availabilityStatus = availability.status;
-    court.snapshot = `${statusLabel(availability.status)} · ${formatCapturedAt(availability.capturedAt)}`;
-    if (availability.sourceUrl) court.bookingUrl = availability.sourceUrl;
-  }
-
-  const liveProviders = (payload.providers || []).filter(
-    (provider) => provider.status === "live" || provider.status === "cached",
-  ).length;
-  const pendingProviders = (payload.providers || []).filter(
-    (provider) => provider.status === "needs_authorization",
-  ).length;
-  dataNotice.innerHTML = `
-    <span>DATA STATUS</span>
-    ${liveProviders} authorized feed${liveProviders === 1 ? "" : "s"} connected.
-    ${pendingProviders} provider${pendingProviders === 1 ? "" : "s"} awaiting venue credentials.
-    Factual snapshots show their capture time; remaining slots are illustrative.
-  `;
+function platformOf(venue) {
+  return platforms[venue.platform] || { name: venue.platform, integration: "deep_link" };
 }
 
-async function loadAvailability() {
-  try {
-    const params = new URLSearchParams({ date: state.selectedDate });
-    const response = await fetch(`/api/availability?${params}`, {
-      headers: { Accept: "application/json" },
-    });
-    if (!response.ok) throw new Error(`Availability API returned ${response.status}`);
-    applyAvailability(await response.json());
-  } catch {
-    dataNotice.innerHTML = `
-      <span>OFFLINE MODE</span>
-      The availability API is not running. Start the site with <b>npm start</b>
-      to load authorized feeds and factual snapshots.
-    `;
-  }
-  render();
+function bookingLink(venue) {
+  return availability.get(venue.id)?.sourceUrl || venue.bookingUrl;
 }
 
-function timeMatches(court) {
-  if (state.time === "all") return true;
-  const hours = court.availability
-    .map((slot) => Number.parseInt(slot, 10))
-    .filter(Number.isFinite);
-  if (state.time === "morning") return hours.some((hour) => hour < 12);
-  if (state.time === "afternoon") return hours.some((hour) => hour >= 12 && hour < 18);
-  return hours.some((hour) => hour >= 18);
+function isMembersOnly(venue) {
+  return venue.access === "members";
 }
 
-function filteredCourts() {
+function priceLabel(venue) {
+  if (venue.priceFrom === undefined) return `<span class="price-unknown">Price on booking page</span>`;
+  const from = Number.isInteger(venue.priceFrom) ? venue.priceFrom : venue.priceFrom.toFixed(2);
+  const peak = venue.pricePeak ? ` <small>· peak $${venue.pricePeak}</small>` : "";
+  return `from <b>$${from}</b>/hr${peak}`;
+}
+
+function slotHour(slot) {
+  return Number.parseInt(slot.start, 10);
+}
+
+function slotsForWindow(slots) {
+  if (state.time === "all") return slots;
+  return slots.filter((slot) => TIME_WINDOWS[state.time](slotHour(slot)));
+}
+
+function hasOpenSlot(venue) {
+  const live = availability.get(venue.id);
+  return Boolean(live && slotsForWindow(live.slots).some((slot) => slot.availableCourts > 0));
+}
+
+function filteredVenues() {
   const query = state.query.toLowerCase();
-  const list = courts.filter((court) => {
-    const typeMatch = state.type === "all" || court.provider === state.type;
-    const areaMatch = state.area === "all" || court.area === state.area;
-    const featureMatch =
-      state.feature === "all" ||
-      court.features.some((feature) => feature.toLowerCase().includes(state.feature.toLowerCase()));
-    const queryMatch =
-      !query ||
-      `${court.name} ${court.address} ${court.area}`.toLowerCase().includes(query);
-    const availableMatch = !state.availableOnly || court.availability.length > court.booked.length;
-    return typeMatch && areaMatch && featureMatch && queryMatch && availableMatch && timeMatches(court);
+  const list = venues.filter((venue) => {
+    const searchable = `${venue.name} ${venue.operator} ${venue.address} ${venue.area} ${platformOf(venue).name}`;
+    return (
+      (state.type === "all" || venue.category === state.type) &&
+      (state.area === "all" || venue.area === state.area) &&
+      (state.platform === "all" || venue.platform === state.platform) &&
+      (state.feature === "all" || (venue.setting || []).includes(state.feature)) &&
+      (!state.publicOnly || !isMembersOnly(venue)) &&
+      (!query || searchable.toLowerCase().includes(query))
+    );
   });
 
   return list.sort((a, b) => {
-    if (state.sort === "price") return a.price - b.price;
-    if (state.sort === "rating") return b.rating - a.rating;
-    if (state.sort === "available") {
-      return (b.availability.length - b.booked.length) - (a.availability.length - a.booked.length);
-    }
-    return (b.rating + b.availability.length / 10) - (a.rating + a.availability.length / 10);
+    if (state.sort === "price") return (a.priceFrom ?? Infinity) - (b.priceFrom ?? Infinity);
+    if (state.sort === "courts") return (b.courts || 0) - (a.courts || 0);
+    if (state.sort === "name") return a.name.localeCompare(b.name);
+    return recommendScore(b) - recommendScore(a) || a.name.localeCompare(b.name);
   });
 }
 
-function courtCard(court) {
-  const provider = court.providerName || court.provider.toUpperCase();
-  const price = court.price === 0 ? "<b>Free</b>" : `from <b>$${court.price}</b>/hr`;
-  const slots = court.availability
-    .map((slot) => {
-      const booked = court.booked.includes(slot);
-      const availableCourts = court.slotAvailability?.[slot];
-      const label = availableCourts === undefined
-        ? slot
-        : `${slot} · ${availableCourts}/${court.totalCourts}`;
-      return `<button class="slot ${booked ? "booked" : ""}" ${booked ? "disabled" : ""} data-slot="${court.name}|${slot}">${label}</button>`;
-    })
-    .join("");
-  const availabilityCount = court.slotAvailability
-    ? Math.max(...Object.values(court.slotAvailability))
-    : court.availability.length - court.booked.length;
-  const availabilityLabel = court.slotAvailability
-    ? `${availabilityCount}/${court.totalCourts} courts free at best`
-    : `${availabilityCount} available`;
-  const sourceClass = court.factual ? "verified" : "";
-  const noAvailability = court.availability.length === 0;
-  const slotsMarkup = noAvailability
-    ? `<span class="no-slots">${statusLabel(court.availabilityStatus || "unavailable")}</span>`
-    : slots;
+// Live open courts first, then anything bookable online by the public, then
+// member clubs and paused venues.
+function recommendScore(venue) {
+  let score = 0;
+  if (hasOpenSlot(venue)) score += 100;
+  else if (availability.has(venue.id)) score += 50;
+  if (!isMembersOnly(venue)) score += 20;
+  if (venue.status === "paused") score -= 40;
+  score += Math.min(venue.courts || 0, 10);
+  return score;
+}
+
+function availabilityMarkup(venue) {
+  const platform = platformOf(venue);
+  const live = availability.get(venue.id);
+  const link = escapeHtml(bookingLink(venue));
+
+  if (live) {
+    const slots = slotsForWindow(live.slots);
+    const best = Math.max(0, ...slots.map((slot) => slot.availableCourts));
+    const chips = slots.length
+      ? slots.map((slot) => `
+          <a class="slot ${slot.availableCourts === 0 ? "booked" : ""}" href="${link}" target="_blank" rel="noreferrer"
+             title="${slot.availableCourts} of ${live.totalCourts} courts free">
+            ${slot.start} · ${slot.availableCourts}/${live.totalCourts}
+          </a>`).join("")
+      : `<span class="no-slots">No open times in this window.</span>`;
+    return `
+      <div class="availability-title">
+        <span>Open courts by hour</span>
+        <b>${best}/${live.totalCourts} free at best</b>
+      </div>
+      <div class="slots">${chips}</div>
+      <div class="snapshot-note">${statusLabel(live.status)} from ${escapeHtml(platform.name)} · ${formatCapturedAt(live.capturedAt)}</div>
+    `;
+  }
+
+  const reason = {
+    deep_link: `Check open times on ${escapeHtml(platform.name)}.`,
+    venue_feed: `${escapeHtml(platform.name)} needs a venue-approved feed for live times. Check the booking page for now.`,
+    live: `Live ${escapeHtml(platform.name)} times appear here once this club is connected.`,
+  }[platform.integration] || "Check open times on the booking page.";
+  return `
+    <div class="availability-title"><span>Availability for ${escapeHtml(state.selectedDate ? formatDate(state.selectedDate) : "today")}</span></div>
+    <p class="no-slots">${venue.platform === "activesg" ? "Sign in with Singpass on MyActiveSG+ to see open slots and enter ballots." : reason}</p>
+  `;
+}
+
+function venueCard(venue) {
+  const platform = platformOf(venue);
+  const tags = [
+    venue.courts ? `${venue.courts} court${venue.courts === 1 ? "" : "s"}` : null,
+    ...(venue.setting || []),
+    isMembersOnly(venue) ? "Members only" : null,
+    venue.status === "paused" ? "Bookings paused" : null,
+  ].filter(Boolean);
+  const live = availability.has(venue.id);
 
   return `
-    <article class="court-card">
-      <div class="court-visual ${court.area.toLowerCase()}">
-        <span class="provider-badge">${provider}</span>
+    <article class="court-card" data-venue="${escapeHtml(venue.id)}">
+      <div class="court-visual ${venue.area.toLowerCase()}">
+        <span class="provider-badge">${escapeHtml(platform.name)}</span>
       </div>
       <div class="court-content">
         <div class="court-top">
           <div>
-            <h3>${court.name}</h3>
+            <h3>${escapeHtml(venue.name)}</h3>
             <span class="court-location">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12A7 7 0 1 0 5 9c0 5.9 7 12 7 12Zm0-9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
-              ${court.address} · ${court.area}
+              ${escapeHtml(venue.address)} · ${escapeHtml(venue.area)}
             </span>
           </div>
-          <div class="rating"><span>★</span> ${court.rating} <small>(${court.reviews})</small></div>
+          <button class="locate-button" type="button" data-locate="${escapeHtml(venue.id)}" aria-label="Show ${escapeHtml(venue.name)} on map">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12A7 7 0 1 0 5 9c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </button>
         </div>
-        <div class="tags">${court.features.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
-        <div class="availability-row">
-          <div class="availability-title">
-            <span>${
-              court.factual
-                ? "Unbooked courts by hour"
-                : court.feedManaged
-                  ? "Availability for selected date"
-                  : "Illustrative slots today"
-            }</span>
-            <b>${noAvailability ? "No data" : availabilityLabel}</b>
-          </div>
-          <div class="slots">${slotsMarkup}</div>
-          ${court.snapshot ? `<div class="snapshot-note">${court.snapshot}. Names are not collected or displayed.</div>` : ""}
-        </div>
+        <div class="tags">${tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
+        <div class="availability-row">${availabilityMarkup(venue)}</div>
+        ${venue.notes ? `<p class="venue-note">${escapeHtml(venue.notes)}</p>` : ""}
         <div class="card-foot">
           <div>
-            <div class="price">${price}</div>
-            <span class="source-status ${sourceClass}"><i></i>${court.source}</span>
+            <div class="price">${priceLabel(venue)}</div>
+            <span class="source-status ${live ? "verified" : ""}"><i></i>${escapeHtml(venue.hours || "")}</span>
           </div>
-          <a class="book-link" href="${court.bookingUrl}" target="${court.bookingUrl.startsWith("http") ? "_blank" : "_self"}" rel="noreferrer">View source →</a>
+          <a class="book-link" href="${escapeHtml(bookingLink(venue))}" target="_blank" rel="noreferrer">
+            ${live ? "Book" : "Check availability"} on ${escapeHtml(platform.name)} →
+          </a>
         </div>
       </div>
     </article>
   `;
 }
 
-function render() {
-  const all = filteredCourts();
-  const visible = all.slice(0, state.limit);
-  resultCount.textContent = `${all.length} court${all.length === 1 ? "" : "s"}`;
-  cards.innerHTML = visible.length
-    ? visible.map(courtCard).join("")
-    : `<div class="empty-state"><b>No courts match these filters.</b><br />Try another area or court type.</div>`;
-  document.querySelector("#load-more").hidden = visible.length >= all.length;
+function markerStyle(venue) {
+  if (availability.has(venue.id)) return { fillColor: "#c8ff49", color: "#17251f" };
+  if (isMembersOnly(venue)) return { fillColor: "#9aa39e", color: "#ffffff" };
+  return { fillColor: "#276b5b", color: "#ffffff" };
+}
 
-  mapPins.innerHTML = all.map((court) => `
-    <button class="map-pin ${court.provider === "Community" ? "community" : ""}" style="left:${court.x}%;top:${court.y}%" aria-label="${court.name}">
-      <span class="pin-name">${court.name}</span>
-    </button>
-  `).join("");
+function popupMarkup(venue) {
+  const platform = platformOf(venue);
+  const live = availability.get(venue.id);
+  const open = live ? slotsForWindow(live.slots).filter((slot) => slot.availableCourts > 0) : [];
+  return `
+    <div class="venue-popup">
+      <b>${escapeHtml(venue.name)}</b>
+      <span>${escapeHtml(venue.address)}</span>
+      <span>${priceLabel(venue)} · ${escapeHtml(platform.name)}</span>
+      ${live ? `<span class="popup-live">${open.length ? `Open: ${open.slice(0, 6).map((slot) => slot.start).join(", ")}` : "No open times"}</span>` : ""}
+      <a href="${escapeHtml(bookingLink(venue))}" target="_blank" rel="noreferrer">${live ? "Book" : "Check availability"} →</a>
+    </div>
+  `;
+}
+
+function ensureMap() {
+  if (venueMap || typeof L === "undefined") return;
+  venueMap = L.map("venue-map", { zoomControl: true, scrollWheelZoom: false }).setView(SINGAPORE_CENTRE, 11);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(venueMap);
+  venueLayer = L.layerGroup().addTo(venueMap);
+}
+
+function renderMap(list) {
+  ensureMap();
+  if (!venueMap) return;
+  venueLayer.clearLayers();
+  for (const venue of list) {
+    L.circleMarker([venue.lat, venue.lon], {
+      radius: 8,
+      weight: 2,
+      fillOpacity: 0.95,
+      ...markerStyle(venue),
+    })
+      .bindPopup(popupMarkup(venue))
+      .bindTooltip(escapeHtml(venue.name), { direction: "top", offset: [0, -6] })
+      .addTo(venueLayer);
+  }
+  fitMap(list);
+}
+
+// Leaflet can only fit bounds once the map has a size; on phones it starts hidden.
+function fitMap(list) {
+  if (mapFitted || !list.length || !document.querySelector("#venue-map").offsetWidth) return;
+  venueMap.invalidateSize();
+  venueMap.fitBounds(L.latLngBounds(list.map((venue) => [venue.lat, venue.lon])), { padding: [24, 24] });
+  mapFitted = true;
+}
+
+function focusVenue(venueId) {
+  const venue = venues.find((item) => item.id === venueId);
+  if (!venue || !venueMap) return;
+  if (window.matchMedia("(max-width: 980px)").matches) setView("map");
+  venueMap.invalidateSize();
+  venueMap.setView([venue.lat, venue.lon], 15);
+  venueLayer.eachLayer((layer) => {
+    const { lat, lng } = layer.getLatLng();
+    if (lat === venue.lat && lng === venue.lon) layer.openPopup();
+  });
+}
+
+function timelineCell(slot, totalCourts, link) {
+  if (!slot) return `<td class="cell closed" title="Not bookable"></td>`;
+  const ratio = slot.availableCourts / totalCourts;
+  const level = slot.availableCourts === 0 ? "none" : ratio >= 0.5 ? "most" : "some";
+  return `
+    <td class="cell ${level}">
+      <a href="${escapeHtml(link)}" target="_blank" rel="noreferrer" title="${slot.availableCourts} of ${totalCourts} courts free">
+        ${slot.availableCourts}
+      </a>
+    </td>`;
+}
+
+function renderTimeline(list) {
+  document.querySelector("#timeline-date").textContent = state.selectedDate
+    ? `${formatDate(state.selectedDate)} · numbers show free courts; tap one to book`
+    : "";
+  const hours = TIMELINE_HOURS.filter((hour) => state.time === "all" || TIME_WINDOWS[state.time](Number.parseInt(hour, 10)));
+  const liveVenues = list.filter((venue) => availability.has(venue.id));
+
+  document.querySelector("#timeline-grid").innerHTML = liveVenues.length
+    ? `
+      <table class="timeline-table">
+        <thead><tr><th scope="col">Venue</th>${hours.map((hour) => `<th scope="col">${hour.slice(0, 2)}</th>`).join("")}</tr></thead>
+        <tbody>
+          ${liveVenues.map((venue) => {
+            const live = availability.get(venue.id);
+            const byHour = new Map(live.slots.map((slot) => [slot.start, slot]));
+            return `
+              <tr>
+                <th scope="row">
+                  <a href="${escapeHtml(bookingLink(venue))}" target="_blank" rel="noreferrer">${escapeHtml(venue.name)}</a>
+                  <small>${escapeHtml(platformOf(venue).name)} · ${statusLabel(live.status)} ${formatCapturedAt(live.capturedAt)}</small>
+                </th>
+                ${hours.map((hour) => timelineCell(byHour.get(hour), live.totalCourts, bookingLink(venue))).join("")}
+              </tr>`;
+          }).join("")}
+        </tbody>
+      </table>`
+    : `<div class="empty-state"><b>No live feeds for these filters yet.</b><br />Venues on Playtomic show here once connected. Use the links below for the rest.</div>`;
+
+  const direct = list.filter((venue) => !availability.has(venue.id));
+  const groups = new Map();
+  for (const venue of direct) {
+    if (!groups.has(venue.platform)) groups.set(venue.platform, []);
+    groups.get(venue.platform).push(venue);
+  }
+  document.querySelector("#timeline-direct-list").innerHTML = [...groups.entries()]
+    .sort(([, a], [, b]) => b.length - a.length)
+    .map(([platformId, items]) => `
+      <div class="direct-group">
+        <b>${escapeHtml(platforms[platformId]?.name || platformId)}</b>
+        <div>${items.map((venue) => `<a href="${escapeHtml(bookingLink(venue))}" target="_blank" rel="noreferrer">${escapeHtml(venue.name)} →</a>`).join("")}</div>
+      </div>`)
+    .join("");
+}
+
+function renderSources() {
+  const counts = {};
+  for (const venue of venues) counts[venue.platform] = (counts[venue.platform] || 0) + 1;
+  const integrationLabel = {
+    live: ["Live times", "live"],
+    venue_feed: ["Needs venue feed", "feed"],
+    deep_link: ["Direct link", "link"],
+  };
+  document.querySelector("#source-grid").innerHTML = Object.entries(platforms)
+    .filter(([id]) => counts[id])
+    .sort(([a], [b]) => counts[b] - counts[a])
+    .map(([id, platform]) => {
+      const [label, modifier] = integrationLabel[platform.integration] || integrationLabel.deep_link;
+      const names = venues.filter((venue) => venue.platform === id).map((venue) => venue.name);
+      return `
+        <article class="source-card">
+          <div class="source-card-top">
+            <h3>${escapeHtml(platform.name)}</h3>
+            <span class="integration ${modifier}">${label}</span>
+          </div>
+          <p class="source-count">${counts[id]} venue${counts[id] === 1 ? "" : "s"}</p>
+          <p>${escapeHtml(platform.access)}</p>
+          <p class="source-detail">${escapeHtml(platform.integrationNote)}</p>
+          <details><summary>Venues</summary><ul>${names.map((name) => `<li>${escapeHtml(name)}</li>`).join("")}</ul></details>
+          <div class="source-actions">
+            <button type="button" class="source-filter" data-platform="${escapeHtml(id)}">Show venues</button>
+            ${platform.url ? `<a href="${escapeHtml(platform.url)}" target="_blank" rel="noreferrer">Open ${escapeHtml(platform.name)} →</a>` : ""}
+          </div>
+        </article>`;
+    })
+    .join("");
+
+  document.querySelector("#social-play").innerHTML = `
+    <h3>Looking for a game rather than a court?</h3>
+    <div>${socialPlay.map((item) => `
+      <a href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer"><b>${escapeHtml(item.name)}</b><span>${escapeHtml(item.description)}</span></a>`).join("")}
+    </div>`;
+}
+
+function renderNotice() {
+  const liveVenues = venues.filter((venue) => availability.has(venue.id)).length;
+  const connected = providerStatuses.filter((provider) => ["live", "cached"].includes(provider.status)).length;
+  dataNotice.innerHTML = `
+    <span>DATA STATUS</span>
+    ${venues.length} venues across ${Object.keys(platforms).length} booking systems.
+    ${liveVenues ? `${liveVenues} showing live or snapshot times from ${connected || "saved"} feed${connected === 1 ? "" : "s"}.` : "No live feeds connected yet."}
+    Every other venue links straight to its booking page.
+  `;
+}
+
+function render() {
+  const all = filteredVenues();
+  const visible = all.slice(0, state.limit);
+  resultCount.textContent = `${all.length} venue${all.length === 1 ? "" : "s"}`;
+  cards.innerHTML = visible.length
+    ? visible.map(venueCard).join("")
+    : `<div class="empty-state"><b>No venues match these filters.</b><br />Try another area or booking system.</div>`;
+  document.querySelector("#load-more").hidden = visible.length >= all.length;
+  renderMap(all);
+  if (state.view === "timeline") renderTimeline(all);
+}
+
+function setView(view) {
+  state.view = view;
+  document.querySelectorAll("[data-view]").forEach((item) => item.classList.toggle("selected", item.dataset.view === view));
+  courtLayout.hidden = view === "timeline";
+  timelinePanel.hidden = view !== "timeline";
+  courtLayout.classList.toggle("map-view", view === "map");
+  render();
+  if (venueMap) {
+    venueMap.invalidateSize();
+    fitMap(filteredVenues());
+  }
 }
 
 function showToast(message) {
@@ -454,35 +428,94 @@ function showToast(message) {
   window.setTimeout(() => toast.classList.remove("show"), 2600);
 }
 
+function applyAvailability(payload) {
+  availability = new Map();
+  providerStatuses = payload.providers || [];
+  for (const court of payload.courts || []) {
+    if (court.date !== state.selectedDate || !Array.isArray(court.slots)) continue;
+    availability.set(court.courtId, court);
+  }
+}
+
+async function loadAvailability() {
+  try {
+    const params = new URLSearchParams({ date: state.selectedDate });
+    const response = await fetch(`/api/availability?${params}`, { headers: { Accept: "application/json" } });
+    if (!response.ok) throw new Error(`Availability API returned ${response.status}`);
+    applyAvailability(await response.json());
+    renderNotice();
+  } catch {
+    availability = new Map();
+    dataNotice.innerHTML = `
+      <span>OFFLINE MODE</span>
+      The availability API is not running. Start the site with <b>npm start</b> to load live feeds.
+    `;
+  }
+  render();
+}
+
+async function loadVenues() {
+  const response = await fetch("/api/venues", { headers: { Accept: "application/json" } });
+  if (!response.ok) throw new Error(`Venues API returned ${response.status}`);
+  const payload = await response.json();
+  venues = payload.venues;
+  platforms = payload.platforms;
+  socialPlay = payload.socialPlay || [];
+
+  document.querySelector("#venue-total").textContent = venues.length;
+  document.querySelector("#platform-total").textContent = new Set(venues.map((venue) => venue.platform)).size;
+  const platformFilter = document.querySelector("#platform-filter");
+  for (const [id, platform] of Object.entries(platforms)) {
+    if (!venues.some((venue) => venue.platform === id)) continue;
+    platformFilter.insertAdjacentHTML("beforeend", `<option value="${escapeHtml(id)}">${escapeHtml(platform.name)}</option>`);
+  }
+  renderSources();
+}
+
+function bindSelect(selector, key) {
+  document.querySelector(selector).addEventListener("change", (event) => {
+    state[key] = event.target.value;
+    state.limit = 8;
+    render();
+  });
+}
+
 document.querySelector("#type-filters").addEventListener("click", (event) => {
   const button = event.target.closest("button");
   if (!button) return;
-  document.querySelectorAll("#type-filters button").forEach((item) => item.classList.remove("selected"));
-  button.classList.add("selected");
+  document.querySelectorAll("#type-filters button").forEach((item) => item.classList.toggle("selected", item === button));
   state.type = button.dataset.type;
-  state.limit = 6;
+  state.limit = 8;
   render();
 });
-
-document.querySelector("#area-filter").addEventListener("change", (event) => {
-  state.area = event.target.value;
-  render();
-});
-document.querySelector("#feature-filter").addEventListener("change", (event) => {
-  state.feature = event.target.value;
-  render();
-});
-document.querySelector("#available-only").addEventListener("change", (event) => {
-  state.availableOnly = event.target.checked;
-  render();
-});
-document.querySelector("#sort-filter").addEventListener("change", (event) => {
-  state.sort = event.target.value;
+bindSelect("#area-filter", "area");
+bindSelect("#platform-filter", "platform");
+bindSelect("#feature-filter", "feature");
+bindSelect("#sort-filter", "sort");
+document.querySelector("#public-only").addEventListener("change", (event) => {
+  state.publicOnly = event.target.checked;
   render();
 });
 document.querySelector("#load-more").addEventListener("click", () => {
-  state.limit += 6;
+  state.limit += 8;
   render();
+});
+document.querySelectorAll("[data-view]").forEach((button) => {
+  button.addEventListener("click", () => setView(button.dataset.view));
+});
+cards.addEventListener("click", (event) => {
+  const locate = event.target.closest("[data-locate]");
+  if (locate) focusVenue(locate.dataset.locate);
+});
+document.querySelector("#source-grid").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-platform]");
+  if (!button) return;
+  state.platform = button.dataset.platform;
+  document.querySelector("#platform-filter").value = state.platform;
+  state.limit = 50;
+  setView("list");
+  document.querySelector("#courts").scrollIntoView({ behavior: "smooth" });
+  showToast(`Showing venues booked through ${platforms[state.platform].name}`);
 });
 
 document.querySelector("#hero-search").addEventListener("submit", (event) => {
@@ -495,26 +528,17 @@ document.querySelector("#hero-search").addEventListener("submit", (event) => {
   document.querySelector("#courts").scrollIntoView({ behavior: "smooth" });
 });
 
-document.querySelectorAll("[data-view]").forEach((button) => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll("[data-view]").forEach((item) => item.classList.remove("selected"));
-    button.classList.add("selected");
-    courtLayout.classList.toggle("map-view", button.dataset.view === "map");
-  });
-});
-
-cards.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-slot]");
-  if (!button) return;
-  const [court, slot] = button.dataset.slot.split("|");
-  showToast(`${slot} selected at ${court}. Continue via “View source” to book.`);
-});
-
-const today = new Date();
-const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
-  .toISOString()
-  .split("T")[0];
+const localDate = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Singapore",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+}).format(new Date());
 document.querySelector("#hero-date").value = localDate;
 state.selectedDate = localDate;
 
-loadAvailability();
+loadVenues()
+  .then(loadAvailability)
+  .catch(() => {
+    dataNotice.innerHTML = `<span>OFFLINE MODE</span> Venue data could not be loaded. Start the site with <b>npm start</b>.`;
+  });

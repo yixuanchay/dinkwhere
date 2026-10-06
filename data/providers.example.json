@@ -1,6 +1,17 @@
 {
   "providers": [
     {
+      "id": "playtomic",
+      "adapter": "playtomic",
+      "tenants": {
+        "replace-with-playtomic-tenant-id": {
+          "courtId": "tsa-jalan-kayu",
+          "totalCourts": 10,
+          "sourceUrl": "https://playtomic.com/clubs/tsa-jalan-kayu"
+        }
+      }
+    },
+    {
       "id": "picklelize-courtreserve",
       "platform": "courtreserve",
       "adapter": "normalized-json",
