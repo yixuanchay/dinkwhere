@@ -12,6 +12,23 @@
       }
     },
     {
+      "id": "playbypoint-straits",
+      "adapter": "playbypoint",
+      "auth": {
+        "type": "bearer",
+        "token": "env:STRAITS_PLAYBYPOINT_API_KEY"
+      },
+      "facilities": {
+        "replace-with-playbypoint-facility-id": {
+          "courtId": "straits-pickle-club",
+          "totalCourts": 3,
+          "openHour": 8,
+          "closeHour": 22,
+          "sourceUrl": "https://straitspickleclub.playbypoint.com/"
+        }
+      }
+    },
+    {
       "id": "picklelize-courtreserve",
       "platform": "courtreserve",
       "adapter": "normalized-json",

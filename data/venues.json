@@ -14,7 +14,7 @@
       "url": "https://app.courtreserve.com/",
       "access": "Free CourtReserve account. Some venues show a public schedule.",
       "integration": "venue_feed",
-      "integrationNote": "No public API. Live counts need a venue-approved feed (see docs/provider-feed-contract.md)."
+      "integrationNote": "CourtReserve has an official API for venues on its Scale or Enterprise plans. Live counts need the venue to issue read-only API credentials."
     },
     "playtomic": {
       "name": "Playtomic",
@@ -27,8 +27,8 @@
       "name": "PlayByPoint",
       "url": "https://playbypoint.com/",
       "access": "Free PlayByPoint account.",
-      "integration": "venue_feed",
-      "integrationNote": "No public API. Live counts need a venue-approved feed."
+      "integration": "live",
+      "integrationNote": "PlayByPoint has an official API (developer preview). With an API key from the venue, DinkWhere reads open courts per hour."
     },
     "rezerv": {
       "name": "Rezerv",
@@ -95,9 +95,21 @@
     }
   },
   "socialPlay": [
-    { "name": "Reclub", "url": "https://reclub.co/", "description": "Open-play sessions and club games run by local organisers." },
-    { "name": "PickleGO", "url": "https://picklego.co/locations/", "description": "Directory of Singapore court locations with booking notes." },
-    { "name": "Pickleball.sg", "url": "https://www.pickleball.sg/", "description": "Venue directory and community listings." }
+    {
+      "name": "Reclub",
+      "url": "https://reclub.co/",
+      "description": "Open-play sessions and club games run by local organisers."
+    },
+    {
+      "name": "PickleGO",
+      "url": "https://picklego.co/locations/",
+      "description": "Directory of Singapore court locations with booking notes."
+    },
+    {
+      "name": "Pickleball.sg",
+      "url": "https://www.pickleball.sg/",
+      "description": "Venue directory and community listings."
+    }
   ],
   "venues": [
     {
@@ -108,10 +120,15 @@
       "platform": "activesg",
       "area": "Central",
       "address": "5A Race Course Road, Singapore 219775 (Little India Bus Terminal)",
-      "lat": 1.3106, "lon": 103.8531,
+      "lat": 1.3106,
+      "lon": 103.8531,
       "courts": 8,
-      "setting": ["Sheltered", "Dedicated"],
-      "priceFrom": 4.5, "pricePeak": 9.5,
+      "setting": [
+        "Sheltered",
+        "Dedicated"
+      ],
+      "priceFrom": 4.5,
+      "pricePeak": 9.5,
       "hours": "Mon–Sat 7am–10pm (closed Sundays)",
       "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues",
       "notes": "Opened March 2026. Peak slots balloted."
@@ -124,10 +141,15 @@
       "platform": "activesg",
       "area": "East",
       "address": "3 Bedok North Street 2",
-      "lat": 1.3318, "lon": 103.9344,
+      "lat": 1.3318,
+      "lon": 103.9344,
       "courts": 4,
-      "setting": ["Outdoor", "Dedicated"],
-      "priceFrom": 4.5, "pricePeak": 9.5,
+      "setting": [
+        "Outdoor",
+        "Dedicated"
+      ],
+      "priceFrom": 4.5,
+      "pricePeak": 9.5,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues"
     },
@@ -139,10 +161,16 @@
       "platform": "activesg",
       "area": "West",
       "address": "2 International Road, Singapore 619618",
-      "lat": 1.3247, "lon": 103.7025,
+      "lat": 1.3247,
+      "lon": 103.7025,
       "courts": 4,
-      "setting": ["Outdoor", "Dedicated", "Floodlit"],
-      "priceFrom": 4.5, "pricePeak": 9.5,
+      "setting": [
+        "Outdoor",
+        "Dedicated",
+        "Floodlit"
+      ],
+      "priceFrom": 4.5,
+      "pricePeak": 9.5,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues"
     },
@@ -154,10 +182,16 @@
       "platform": "activesg",
       "area": "Central",
       "address": "900 Tiong Bahru Road (near Redhill MRT)",
-      "lat": 1.2906, "lon": 103.8212,
+      "lat": 1.2906,
+      "lon": 103.8212,
       "courts": 4,
-      "setting": ["Outdoor", "Sheltered", "Dedicated"],
-      "priceFrom": 4.5, "pricePeak": 9.5,
+      "setting": [
+        "Outdoor",
+        "Sheltered",
+        "Dedicated"
+      ],
+      "priceFrom": 4.5,
+      "pricePeak": 9.5,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues",
       "notes": "Two of the four courts are sheltered."
@@ -170,10 +204,15 @@
       "platform": "activesg",
       "area": "North-East",
       "address": "57 Anchorvale Road, Singapore 544964",
-      "lat": 1.3960, "lon": 103.8868,
+      "lat": 1.396,
+      "lon": 103.8868,
       "courts": 6,
-      "setting": ["Indoor", "Outdoor"],
-      "priceFrom": 4.5, "pricePeak": 9.5,
+      "setting": [
+        "Indoor",
+        "Outdoor"
+      ],
+      "priceFrom": 4.5,
+      "pricePeak": 9.5,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues"
     },
@@ -185,10 +224,14 @@
       "platform": "activesg",
       "area": "North",
       "address": "21 Canberra Link, Singapore 756973",
-      "lat": 1.4437, "lon": 103.8295,
+      "lat": 1.4437,
+      "lon": 103.8295,
       "courts": 4,
-      "setting": ["Indoor"],
-      "priceFrom": 3.5, "pricePeak": 7.4,
+      "setting": [
+        "Indoor"
+      ],
+      "priceFrom": 3.5,
+      "pricePeak": 7.4,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues"
     },
@@ -200,10 +243,14 @@
       "platform": "activesg",
       "area": "North",
       "address": "101 Yishun Avenue 1, Singapore 769130",
-      "lat": 1.4118, "lon": 103.8312,
+      "lat": 1.4118,
+      "lon": 103.8312,
       "courts": 1,
-      "setting": ["Indoor"],
-      "priceFrom": 3.5, "pricePeak": 7.4,
+      "setting": [
+        "Indoor"
+      ],
+      "priceFrom": 3.5,
+      "pricePeak": 7.4,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues"
     },
@@ -215,10 +262,14 @@
       "platform": "activesg",
       "area": "North-East",
       "address": "93 Hougang Avenue 4",
-      "lat": 1.3700, "lon": 103.8873,
+      "lat": 1.37,
+      "lon": 103.8873,
       "courts": 4,
-      "setting": ["Indoor"],
-      "priceFrom": 3.5, "pricePeak": 7.4,
+      "setting": [
+        "Indoor"
+      ],
+      "priceFrom": 3.5,
+      "pricePeak": 7.4,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues"
     },
@@ -230,10 +281,14 @@
       "platform": "activesg",
       "area": "West",
       "address": "518 Clementi Avenue 3, Singapore 129907",
-      "lat": 1.3172, "lon": 103.7660,
+      "lat": 1.3172,
+      "lon": 103.766,
       "courts": 2,
-      "setting": ["Indoor"],
-      "priceFrom": 3.5, "pricePeak": 7.4,
+      "setting": [
+        "Indoor"
+      ],
+      "priceFrom": 3.5,
+      "pricePeak": 7.4,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues"
     },
@@ -245,10 +300,14 @@
       "platform": "activesg",
       "area": "West",
       "address": "21 Jurong East Street 31",
-      "lat": 1.3466, "lon": 103.7290,
+      "lat": 1.3466,
+      "lon": 103.729,
       "courts": 2,
-      "setting": ["Indoor"],
-      "priceFrom": 3.5, "pricePeak": 7.4,
+      "setting": [
+        "Indoor"
+      ],
+      "priceFrom": 3.5,
+      "pricePeak": 7.4,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues"
     },
@@ -260,10 +319,14 @@
       "platform": "activesg",
       "area": "West",
       "address": "1 Choa Chu Kang Street 53",
-      "lat": 1.3908, "lon": 103.7480,
+      "lat": 1.3908,
+      "lon": 103.748,
       "courts": 2,
-      "setting": ["Outdoor"],
-      "priceFrom": 4.5, "pricePeak": 9.5,
+      "setting": [
+        "Outdoor"
+      ],
+      "priceFrom": 4.5,
+      "pricePeak": 9.5,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues"
     },
@@ -275,10 +338,15 @@
       "platform": "perfectgym",
       "area": "Central",
       "address": "Kallang Tennis Hub, 52 Stadium Road",
-      "lat": 1.3021, "lon": 103.8757,
+      "lat": 1.3021,
+      "lon": 103.8757,
       "courts": 8,
-      "setting": ["Outdoor", "Dual-use"],
-      "priceFrom": 5.5, "pricePeak": 10,
+      "setting": [
+        "Outdoor",
+        "Dual-use"
+      ],
+      "priceFrom": 5.5,
+      "pricePeak": 10,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://thekallang.perfectgym.com/",
       "notes": "Local rates shown; non-residents pay $8.50–$15.50."
@@ -291,10 +359,15 @@
       "platform": "courtreserve",
       "area": "North-East",
       "address": "10 Tebing Lane, Singapore 828836",
-      "lat": 1.4041, "lon": 103.9121,
+      "lat": 1.4041,
+      "lon": 103.9121,
       "courts": 6,
-      "setting": ["Sheltered", "Dedicated"],
-      "priceFrom": 20, "pricePeak": 25,
+      "setting": [
+        "Sheltered",
+        "Dedicated"
+      ],
+      "priceFrom": 20,
+      "pricePeak": 25,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://app.courtreserve.com/Online/Reservations/Bookings/13455?sId=17508",
       "venueUrl": "https://www.playpickle.sg/court-booking",
@@ -308,8 +381,13 @@
       "platform": "courtreserve",
       "area": "North-East",
       "address": "756 Upper Serangoon Road, #04-27, Singapore 534626",
-      "lat": 1.3592, "lon": 103.8851,
-      "setting": ["Indoor", "Air-conditioned", "Dedicated"],
+      "lat": 1.3592,
+      "lon": 103.8851,
+      "setting": [
+        "Indoor",
+        "Air-conditioned",
+        "Dedicated"
+      ],
       "priceFrom": 20,
       "hours": "See booking page",
       "bookingUrl": "https://www.playpickle.sg/court-booking",
@@ -323,8 +401,12 @@
       "platform": "courtreserve",
       "area": "East",
       "address": "750A Chai Chee Road, Level 8, Singapore 469001",
-      "lat": 1.3237, "lon": 103.9226,
-      "setting": ["Sheltered", "Dedicated"],
+      "lat": 1.3237,
+      "lon": 103.9226,
+      "setting": [
+        "Sheltered",
+        "Dedicated"
+      ],
       "priceFrom": 20,
       "hours": "See booking page",
       "bookingUrl": "https://www.playpickle.sg/court-booking",
@@ -338,8 +420,11 @@
       "platform": "courtreserve",
       "area": "East",
       "address": "490 East Coast Road, Singapore 429058",
-      "lat": 1.3076, "lon": 103.9105,
-      "setting": ["Indoor"],
+      "lat": 1.3076,
+      "lon": 103.9105,
+      "setting": [
+        "Indoor"
+      ],
       "priceFrom": 20,
       "hours": "Selected evenings and weekends",
       "bookingUrl": "https://www.playpickle.sg/court-booking"
@@ -352,9 +437,13 @@
       "platform": "courtreserve",
       "area": "East",
       "address": "125 Pasir Ris Road, Singapore 519121",
-      "lat": 1.3779, "lon": 103.9517,
+      "lat": 1.3779,
+      "lon": 103.9517,
       "courts": 2,
-      "setting": ["Sheltered", "Dedicated"],
+      "setting": [
+        "Sheltered",
+        "Dedicated"
+      ],
       "priceFrom": 20,
       "hours": "Daily 9am–11pm",
       "bookingUrl": "https://app.courtreserve.com/Portal/Picklelize",
@@ -368,10 +457,15 @@
       "platform": "venue_site",
       "area": "North-East",
       "address": "Northshore Drive, #01-23, Singapore 828670",
-      "lat": 1.4166, "lon": 103.9052,
+      "lat": 1.4166,
+      "lon": 103.9052,
       "courts": 2,
-      "setting": ["Indoor", "Dedicated"],
-      "priceFrom": 22, "pricePeak": 28,
+      "setting": [
+        "Indoor",
+        "Dedicated"
+      ],
+      "priceFrom": 22,
+      "pricePeak": 28,
       "hours": "Bookings open 9am daily, 14 days ahead",
       "bookingUrl": "https://www.performancepickleball.org/court-booking",
       "notes": "Free membership required to book."
@@ -384,9 +478,14 @@
       "platform": "venue_site",
       "area": "East",
       "address": "Changi Beach Club, 350 Cranwell Road, Singapore 509864",
-      "lat": 1.3902, "lon": 103.9899,
+      "lat": 1.3902,
+      "lon": 103.9899,
       "courts": 5,
-      "setting": ["Outdoor", "Dedicated", "Cushioned"],
+      "setting": [
+        "Outdoor",
+        "Dedicated",
+        "Cushioned"
+      ],
       "priceFrom": 22,
       "hours": "Mon–Fri 9am–12am, Sat–Sun 8am–12am",
       "bookingUrl": "https://www.performancepickleball.org/court-booking",
@@ -401,9 +500,12 @@
       "platform": "playtomic",
       "area": "East",
       "address": "Changi Beach Club Sports Complex, 350 Cranwell Road",
-      "lat": 1.3896, "lon": 103.9906,
+      "lat": 1.3896,
+      "lon": 103.9906,
       "courts": 2,
-      "setting": ["Outdoor"],
+      "setting": [
+        "Outdoor"
+      ],
       "hours": "Daily until midnight",
       "bookingUrl": "https://playtomic.com/clubs/the-padel-co-changi"
     },
@@ -415,8 +517,13 @@
       "platform": "playtomic",
       "area": "East",
       "address": "Singapore EXPO Hall 10, 1 Expo Drive",
-      "lat": 1.3351, "lon": 103.9602,
-      "setting": ["Indoor", "Air-conditioned", "Dedicated"],
+      "lat": 1.3351,
+      "lon": 103.9602,
+      "setting": [
+        "Indoor",
+        "Air-conditioned",
+        "Dedicated"
+      ],
       "priceFrom": 25,
       "hours": "See booking page",
       "bookingUrl": "https://playtomic.com/clubs/sph",
@@ -430,10 +537,16 @@
       "platform": "playtomic",
       "area": "North-East",
       "address": "20A Fernvale Road (next to Thanggam LRT)",
-      "lat": 1.3973, "lon": 103.8757,
+      "lat": 1.3973,
+      "lon": 103.8757,
       "courts": 10,
-      "setting": ["Indoor", "Air-conditioned", "Dedicated"],
-      "priceFrom": 25, "pricePeak": 35,
+      "setting": [
+        "Indoor",
+        "Air-conditioned",
+        "Dedicated"
+      ],
+      "priceFrom": 25,
+      "pricePeak": 35,
       "hours": "Mon–Fri 8am–10pm, weekends all day",
       "bookingUrl": "https://playtomic.com/clubs/tsa-jalan-kayu",
       "notes": "Jalan Kayu residents get 10–20% off at the booking office."
@@ -446,9 +559,13 @@
       "platform": "playtomic",
       "area": "Central",
       "address": "32 Stevens Road (Novotel/Mercure Stevens)",
-      "lat": 1.3153, "lon": 103.8268,
+      "lat": 1.3153,
+      "lon": 103.8268,
       "courts": 4,
-      "setting": ["Outdoor", "Dedicated"],
+      "setting": [
+        "Outdoor",
+        "Dedicated"
+      ],
       "hours": "See booking page",
       "bookingUrl": "https://playtomic.com/clubs/balmoral-pickleball-club",
       "venueUrl": "https://www.balmoralpickleballclub.com/"
@@ -461,8 +578,11 @@
       "platform": "playtomic",
       "area": "East",
       "address": "750D Chai Chee Road",
-      "lat": 1.3243, "lon": 103.9232,
-      "setting": ["Dual-use"],
+      "lat": 1.3243,
+      "lon": 103.9232,
+      "setting": [
+        "Dual-use"
+      ],
       "hours": "See booking page",
       "bookingUrl": "https://playtomic.com/clubs/b2k-x-shotzone"
     },
@@ -474,9 +594,12 @@
       "platform": "playtomic",
       "area": "Central",
       "address": "PUB Recreation Club, 48 Woodleigh Park, Singapore 357844",
-      "lat": 1.3393, "lon": 103.8713,
+      "lat": 1.3393,
+      "lon": 103.8713,
       "courts": 5,
-      "setting": ["Outdoor"],
+      "setting": [
+        "Outdoor"
+      ],
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://playtomic.com/clubs/pickle-padel-movement",
       "venueUrl": "https://picklepadelmovement.com/pickle/court-bookings/",
@@ -491,10 +614,16 @@
       "platform": "playbypoint",
       "area": "West",
       "address": "2 Jurong Gateway Road, Singapore 608512",
-      "lat": 1.3338, "lon": 103.7408,
+      "lat": 1.3338,
+      "lon": 103.7408,
       "courts": 3,
-      "setting": ["Outdoor", "Shaded", "Dedicated"],
-      "priceFrom": 18, "pricePeak": 32,
+      "setting": [
+        "Outdoor",
+        "Shaded",
+        "Dedicated"
+      ],
+      "priceFrom": 18,
+      "pricePeak": 32,
       "hours": "See booking page",
       "bookingUrl": "https://straitspickleclub.playbypoint.com/"
     },
@@ -506,10 +635,16 @@
       "platform": "smashing",
       "area": "West",
       "address": "2 Jurong Gateway Road, Singapore 608512",
-      "lat": 1.3343, "lon": 103.7414,
+      "lat": 1.3343,
+      "lon": 103.7414,
       "courts": 7,
-      "setting": ["Outdoor", "Shaded", "Dedicated"],
-      "priceFrom": 18, "pricePeak": 32,
+      "setting": [
+        "Outdoor",
+        "Shaded",
+        "Dedicated"
+      ],
+      "priceFrom": 18,
+      "pricePeak": 32,
       "hours": "Daily 8am–10pm",
       "bookingUrl": "https://app.smashing.sg/",
       "venueUrl": "https://smashing.sg/pickle/"
@@ -522,9 +657,13 @@
       "platform": "playbypoint",
       "area": "Central",
       "address": "10A Exeter Road, #02-01, Singapore 239958",
-      "lat": 1.3007, "lon": 103.8393,
+      "lat": 1.3007,
+      "lon": 103.8393,
       "courts": 1,
-      "setting": ["Sheltered", "Rooftop"],
+      "setting": [
+        "Sheltered",
+        "Rooftop"
+      ],
       "priceFrom": 70.85,
       "hours": "Daily 10am–10pm",
       "bookingUrl": "https://pickleandbones.playbypoint.com/",
@@ -538,9 +677,13 @@
       "platform": "playbypoint",
       "area": "West",
       "address": "SRC Ayer Rajah, Ayer Rajah Crescent",
-      "lat": 1.2962, "lon": 103.7870,
+      "lat": 1.2962,
+      "lon": 103.787,
       "courts": 9,
-      "setting": ["Outdoor", "Dedicated"],
+      "setting": [
+        "Outdoor",
+        "Dedicated"
+      ],
       "priceFrom": 20,
       "hours": "See booking page",
       "bookingUrl": "https://src.franklinpickleball.com.sg/book/FranklinPickleballSingapore",
@@ -555,9 +698,13 @@
       "platform": "playbypoint",
       "area": "West",
       "address": "52 West Coast Ferry Road",
-      "lat": 1.2934, "lon": 103.7604,
-      "setting": ["Dual-use"],
-      "priceFrom": 25, "pricePeak": 45,
+      "lat": 1.2934,
+      "lon": 103.7604,
+      "setting": [
+        "Dual-use"
+      ],
+      "priceFrom": 25,
+      "pricePeak": 45,
       "hours": "See booking page",
       "bookingUrl": "https://rsyc.org.sg/pickleball-badminton-court-booking/",
       "access": "members",
@@ -571,10 +718,16 @@
       "platform": "rezerv",
       "area": "Central",
       "address": "4 minutes' walk from Havelock MRT",
-      "lat": 1.2886, "lon": 103.8339,
+      "lat": 1.2886,
+      "lon": 103.8339,
       "courts": 4,
-      "setting": ["Outdoor", "Dedicated", "Floodlit"],
-      "priceFrom": 24, "pricePeak": 42,
+      "setting": [
+        "Outdoor",
+        "Dedicated",
+        "Floodlit"
+      ],
+      "priceFrom": 24,
+      "pricePeak": 42,
       "hours": "Daily 8am–10pm",
       "bookingUrl": "https://kingspickleballarena.rezerv.co/appointment/",
       "venueUrl": "https://kingspickleballarena.com/",
@@ -588,9 +741,12 @@
       "platform": "probuddy",
       "area": "Central",
       "address": "26A Dempsey Road",
-      "lat": 1.3040, "lon": 103.8100,
+      "lat": 1.304,
+      "lon": 103.81,
       "courts": 4,
-      "setting": ["Outdoor"],
+      "setting": [
+        "Outdoor"
+      ],
       "priceFrom": 35,
       "hours": "Daily 6am–12am",
       "bookingUrl": "https://www.probuddy.io/",
@@ -604,9 +760,13 @@
       "platform": "probuddy",
       "area": "Central",
       "address": "51 Telok Ayer Street, Singapore 048441",
-      "lat": 1.2817, "lon": 103.8483,
+      "lat": 1.2817,
+      "lon": 103.8483,
       "courts": 2,
-      "setting": ["Outdoor", "Rooftop"],
+      "setting": [
+        "Outdoor",
+        "Rooftop"
+      ],
       "priceFrom": 29,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://www.probuddy.io/l/6531e2ed-f10c-4911-92b4-4721323dcbbc"
@@ -619,8 +779,13 @@
       "platform": "venue_site",
       "area": "West",
       "address": "Rooftop, 11 Slim Barracks Rise, Singapore 138664",
-      "lat": 1.2973, "lon": 103.7871,
-      "setting": ["Outdoor", "Rooftop", "Dedicated"],
+      "lat": 1.2973,
+      "lon": 103.7871,
+      "setting": [
+        "Outdoor",
+        "Rooftop",
+        "Dedicated"
+      ],
       "priceFrom": 16.5,
       "hours": "Daily 6am–10pm",
       "bookingUrl": "https://www.planyo.com/booking/PICKLECHOO-ARENA",
@@ -634,10 +799,15 @@
       "platform": "venue_site",
       "area": "Central",
       "address": "6 Raffles Boulevard, #04-105 Marina Square, Singapore 039594",
-      "lat": 1.2911, "lon": 103.8572,
+      "lat": 1.2911,
+      "lon": 103.8572,
       "courts": 4,
-      "setting": ["Outdoor", "Rooftop"],
-      "priceFrom": 32, "pricePeak": 44,
+      "setting": [
+        "Outdoor",
+        "Rooftop"
+      ],
+      "priceFrom": 32,
+      "pricePeak": 44,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://mbpsports.com/",
       "notes": "Booked in the MBP Sports Club app."
@@ -650,10 +820,16 @@
       "platform": "venue_site",
       "area": "West",
       "address": "20A Segar Road, Singapore 671480",
-      "lat": 1.3876, "lon": 103.7699,
+      "lat": 1.3876,
+      "lon": 103.7699,
       "courts": 5,
-      "setting": ["Sheltered", "Dedicated", "Floodlit"],
-      "priceFrom": 32.7, "pricePeak": 43.6,
+      "setting": [
+        "Sheltered",
+        "Dedicated",
+        "Floodlit"
+      ],
+      "priceFrom": 32.7,
+      "pricePeak": 43.6,
       "hours": "Daily 8am–10pm",
       "bookingUrl": "https://theark.sg/pickleball/venue/-Ob1ylTZGkNp4wpHH_2j"
     },
@@ -665,10 +841,15 @@
       "platform": "acuity",
       "area": "Central",
       "address": "School Hall, 46 Kim Yam Road, Singapore 239351",
-      "lat": 1.2940, "lon": 103.8384,
+      "lat": 1.294,
+      "lon": 103.8384,
       "courts": 2,
-      "setting": ["Indoor", "Air-conditioned"],
-      "priceFrom": 38, "pricePeak": 48,
+      "setting": [
+        "Indoor",
+        "Air-conditioned"
+      ],
+      "priceFrom": 38,
+      "pricePeak": 48,
       "hours": "Nearly 24 hours",
       "bookingUrl": "https://app.acuityscheduling.com/schedule.php?owner=33373361"
     },
@@ -680,9 +861,13 @@
       "platform": "phone",
       "area": "Central",
       "address": "1 Fullerton Road, Singapore 049213",
-      "lat": 1.2862, "lon": 103.8538,
+      "lat": 1.2862,
+      "lon": 103.8538,
       "courts": 1,
-      "setting": ["Outdoor", "Rooftop"],
+      "setting": [
+        "Outdoor",
+        "Rooftop"
+      ],
       "priceFrom": 40,
       "hours": "Daily 7am–10pm",
       "bookingUrl": "https://www.fullertonhotels.com/fullerton-hotel-singapore/facilities/pickleball",
@@ -697,9 +882,13 @@
       "platform": "club_portal",
       "area": "North",
       "address": "60 Yishun Avenue 4",
-      "lat": 1.4253, "lon": 103.8391,
-      "setting": ["Outdoor"],
-      "priceFrom": 5.1, "pricePeak": 10.2,
+      "lat": 1.4253,
+      "lon": 103.8391,
+      "setting": [
+        "Outdoor"
+      ],
+      "priceFrom": 5.1,
+      "pricePeak": 10.2,
       "hours": "Daily 7am–1am",
       "bookingUrl": "https://safra.sg/amenities-offerings/tennis-pickleball-courts",
       "access": "members",
@@ -713,8 +902,11 @@
       "platform": "club_portal",
       "area": "East",
       "address": "1A Tampines Street 92",
-      "lat": 1.3612, "lon": 103.9509,
-      "setting": ["Outdoor"],
+      "lat": 1.3612,
+      "lon": 103.9509,
+      "setting": [
+        "Outdoor"
+      ],
       "priceFrom": 5.1,
       "hours": "See booking page",
       "bookingUrl": "https://safra.sg/amenities-offerings/tennis-pickleball-courts",
@@ -729,8 +921,11 @@
       "platform": "club_portal",
       "area": "North-East",
       "address": "9 Sentul Crescent",
-      "lat": 1.4062, "lon": 103.9048,
-      "setting": ["Outdoor"],
+      "lat": 1.4062,
+      "lon": 103.9048,
+      "setting": [
+        "Outdoor"
+      ],
       "priceFrom": 5.1,
       "hours": "See booking page",
       "bookingUrl": "https://safra.sg/amenities-offerings/tennis-pickleball-courts",
@@ -744,9 +939,14 @@
       "platform": "club_portal",
       "area": "North",
       "address": "Level 4 Roof Terrace, 2 Yishun Walk, Singapore 767944",
-      "lat": 1.4181, "lon": 103.8336,
-      "setting": ["Outdoor", "Rooftop"],
-      "priceFrom": 23, "pricePeak": 28,
+      "lat": 1.4181,
+      "lon": 103.8336,
+      "setting": [
+        "Outdoor",
+        "Rooftop"
+      ],
+      "priceFrom": 23,
+      "pricePeak": 28,
       "hours": "Daily 7am–10pm (last booking 9pm)",
       "bookingUrl": "https://www.hometeamns.sg/khatib/pickleball/",
       "notes": "Public rates shown; members pay $15–$20."
@@ -759,10 +959,14 @@
       "platform": "club_portal",
       "area": "West",
       "address": "2 Bukit Batok West Avenue 7, Level 6",
-      "lat": 1.3582, "lon": 103.7482,
+      "lat": 1.3582,
+      "lon": 103.7482,
       "courts": 4,
-      "setting": ["Rooftop"],
-      "priceFrom": 6, "pricePeak": 16,
+      "setting": [
+        "Rooftop"
+      ],
+      "priceFrom": 6,
+      "pricePeak": 16,
       "hours": "Daily 8am–10pm",
       "bookingUrl": "https://www.cscbukitbatok.sg/Pickleball-Courts-Corporate-Events-Bukit-Batok-Club-House-Civil-Service-Club",
       "access": "members",
@@ -776,8 +980,11 @@
       "platform": "club_portal",
       "area": "East",
       "address": "2 Netheravon Road",
-      "lat": 1.3884, "lon": 103.9773,
-      "setting": ["Outdoor"],
+      "lat": 1.3884,
+      "lon": 103.9773,
+      "setting": [
+        "Outdoor"
+      ],
       "hours": "See booking page",
       "bookingUrl": "https://www.csc.sg/NewsDetails/102/pickleball-courts-at-csc",
       "access": "members"
@@ -790,9 +997,13 @@
       "platform": "club_portal",
       "area": "Central",
       "address": "45 Tanjong Rhu Road, Singapore 436899",
-      "lat": 1.2968, "lon": 103.8801,
-      "setting": ["Dedicated"],
-      "priceFrom": 8, "pricePeak": 10,
+      "lat": 1.2968,
+      "lon": 103.8801,
+      "setting": [
+        "Dedicated"
+      ],
+      "priceFrom": 8,
+      "pricePeak": 10,
       "hours": "Mon–Fri 7am–10pm, Sat–Sun 8am–10pm",
       "bookingUrl": "https://sswimclub.org.sg/sport-facility/pickleball-court/",
       "access": "members"
@@ -805,8 +1016,12 @@
       "platform": "onepa",
       "area": "Central",
       "address": "1 Anthony Road, Singapore 229944",
-      "lat": 1.3049, "lon": 103.8383,
-      "setting": ["Indoor", "Badminton court"],
+      "lat": 1.3049,
+      "lon": 103.8383,
+      "setting": [
+        "Indoor",
+        "Badminton court"
+      ],
       "priceFrom": 4,
       "hours": "See onePA",
       "bookingUrl": "https://www.onepa.gov.sg/facilities"
@@ -819,8 +1034,12 @@
       "platform": "onepa",
       "area": "Central",
       "address": "51 Bishan Street 13",
-      "lat": 1.3498, "lon": 103.8500,
-      "setting": ["Indoor", "Badminton court"],
+      "lat": 1.3498,
+      "lon": 103.85,
+      "setting": [
+        "Indoor",
+        "Badminton court"
+      ],
       "priceFrom": 4,
       "hours": "See onePA",
       "bookingUrl": "https://www.onepa.gov.sg/facilities"
@@ -833,8 +1052,12 @@
       "platform": "onepa",
       "area": "West",
       "address": "1 Hillview Rise",
-      "lat": 1.3622, "lon": 103.7663,
-      "setting": ["Indoor", "Badminton court"],
+      "lat": 1.3622,
+      "lon": 103.7663,
+      "setting": [
+        "Indoor",
+        "Badminton court"
+      ],
       "priceFrom": 4,
       "hours": "See onePA",
       "bookingUrl": "https://www.onepa.gov.sg/facilities"
@@ -847,11 +1070,91 @@
       "platform": "onepa",
       "area": "North-East",
       "address": "535 Serangoon North Avenue 4",
-      "lat": 1.3772, "lon": 103.8722,
-      "setting": ["Indoor", "Badminton court"],
+      "lat": 1.3772,
+      "lon": 103.8722,
+      "setting": [
+        "Indoor",
+        "Badminton court"
+      ],
       "priceFrom": 4,
       "hours": "See onePA",
       "bookingUrl": "https://www.onepa.gov.sg/facilities"
+    },
+    {
+      "id": "activesg-junyuan",
+      "name": "Junyuan Primary School Hall",
+      "operator": "ActiveSG",
+      "category": "ActiveSG",
+      "platform": "activesg",
+      "area": "East",
+      "address": "2 Tampines Street 91, Singapore 528906",
+      "lat": 1.3537,
+      "lon": 103.9462,
+      "courts": 4,
+      "setting": [
+        "Indoor"
+      ],
+      "priceFrom": 3.5,
+      "pricePeak": 7.4,
+      "hours": "Weekends only (school hall)",
+      "bookingUrl": "https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues",
+      "notes": "5 minutes' walk from Tampines West MRT."
+    },
+    {
+      "id": "our-tampines-hub",
+      "name": "Our Tampines Hub",
+      "operator": "Our Tampines Hub",
+      "category": "Community",
+      "platform": "phone",
+      "area": "East",
+      "address": "1 Tampines Walk, Singapore 528523",
+      "lat": 1.3532,
+      "lon": 103.9402,
+      "courts": 3,
+      "setting": [
+        "Indoor"
+      ],
+      "hours": "Call 6340 3636",
+      "bookingUrl": "https://www.pickleheads.com/courts/sg/singapore/singapore/our-tampines-hub",
+      "notes": "Online booking not confirmed. Call the hub on 6340 3636."
+    },
+    {
+      "id": "cc-tampines-north",
+      "name": "Tampines North Community Club",
+      "operator": "People's Association",
+      "category": "Community",
+      "platform": "onepa",
+      "area": "East",
+      "address": "2 Tampines Street 41",
+      "lat": 1.3594,
+      "lon": 103.9478,
+      "setting": [
+        "Indoor",
+        "Badminton court"
+      ],
+      "priceFrom": 4,
+      "hours": "See onePA",
+      "bookingUrl": "https://www.onepa.gov.sg/facilities"
+    },
+    {
+      "id": "tmcc",
+      "name": "Tanah Merah Country Club",
+      "operator": "TMCC",
+      "category": "Clubs",
+      "platform": "club_portal",
+      "area": "East",
+      "address": "1 Tanah Merah Coast Road",
+      "lat": 1.3315,
+      "lon": 103.9885,
+      "courts": 5,
+      "setting": [
+        "Outdoor",
+        "Dedicated"
+      ],
+      "hours": "Last booking 9pm",
+      "bookingUrl": "https://www.tmcc.org.sg/facilities/sports-complex/",
+      "access": "members",
+      "notes": "Free for members; book by phone or at the Sports Complex 7 days ahead. Three competition courts opened April 2026."
     }
   ]
 }

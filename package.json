@@ -7,7 +7,7 @@
     "start": "node server.js",
     "enrich:addresses": "node scripts/enrich-community-courts.js",
     "playtomic:tenants": "node scripts/find-playtomic-tenants.js --write",
-    "check": "node --check app.js && node --check community.js && node --check server.js && node --check api/index.js && node --check lib/database.js && node --check lib/postgres-database.js && node --check lib/firebase-auth.js && node --check scripts/build-community-courts.js && node --check scripts/enrich-community-courts.js && node --check scripts/find-playtomic-tenants.js && node --test"
+    "check": "node --check app.js && node --check community.js && node --check map.js && node --check server.js && node --check api/index.js && node --check lib/database.js && node --check lib/postgres-database.js && node --check lib/firebase-auth.js && node --check scripts/build-community-courts.js && node --check scripts/enrich-community-courts.js && node --check scripts/find-playtomic-tenants.js && node --test"
   },
   "engines": {
     "node": "22.x"

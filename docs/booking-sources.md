@@ -8,19 +8,19 @@ Prices are SGD per court-hour at the cheapest public (or member) rate. Confirm d
 
 | System | Venues | How DinkWhere connects | Who can book |
 |---|---|---|---|
-| [MyActiveSG+](https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues) | 11 | Direct link only | Singpass-backed ActiveSG account. Peak slots are balloted; non-peak slots are first-come-first-served. |
-| Club member portal | 7 | Direct link only | Membership or club account required; some clubs accept guests by phone. |
+| [MyActiveSG+](https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues) | 12 | Direct link only | Singpass-backed ActiveSG account. Peak slots are balloted; non-peak slots are first-come-first-served. |
+| Club member portal | 8 | Direct link only | Membership or club account required; some clubs accept guests by phone. |
 | [Playtomic](https://playtomic.com/pickleball-courts) | 6 | Live times (adapter built) | Free Playtomic account to book. Open slots are visible without signing in. |
 | [CourtReserve](https://app.courtreserve.com/) | 5 | Needs venue-approved feed | Free CourtReserve account. Some venues show a public schedule. |
 | Venue website | 5 | Direct link only | The venue's own booking page or app. |
-| [PlayByPoint](https://playbypoint.com/) | 4 | Needs venue-approved feed | Free PlayByPoint account. |
-| [onePA](https://www.onepa.gov.sg/facilities) | 4 | Direct link only | onePA account (Singpass) or book at the community club counter. |
+| [onePA](https://www.onepa.gov.sg/facilities) | 5 | Direct link only | onePA account (Singpass) or book at the community club counter. |
+| [PlayByPoint](https://playbypoint.com/) | 4 | Live times (adapter built) | Free PlayByPoint account. |
 | [ProBuddy](https://www.probuddy.io/) | 2 | Direct link only | ProBuddy app or web listing. |
+| Phone / WhatsApp | 2 | Direct link only | Contact the venue directly. |
 | [The Kallang (PerfectGym)](https://thekallang.perfectgym.com/) | 1 | Needs venue-approved feed | The Kallang online booking portal account. |
 | [Smashing.sg](https://app.smashing.sg/) | 1 | Needs venue-approved feed | Book online; an SMS link unlocks your court gate. |
 | [Rezerv](https://www.rezerv.co/) | 1 | Needs venue-approved feed | Book on the venue's Rezerv page. |
 | [Acuity Scheduling](https://app.acuityscheduling.com/) | 1 | Direct link only | Book on the venue's Acuity page. |
-| Phone / WhatsApp | 1 | Direct link only | Contact the venue directly. |
 
 ## Venues
 
@@ -39,6 +39,7 @@ Prices are SGD per court-hour at the cheapest public (or member) rate. Confirm d
 | Clementi Sport Hall | West | 2 | $3.5 | [Book](https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues) |
 | Jurong East Sport Hall | West | 2 | $3.5 | [Book](https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues) |
 | Choa Chu Kang Sports Centre | West | 2 | $4.5 | [Book](https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues) |
+| Junyuan Primary School Hall | East | 4 | $3.5 | [Book](https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues) |
 
 ### Club member portal
 
@@ -51,6 +52,7 @@ Prices are SGD per court-hour at the cheapest public (or member) rate. Confirm d
 | Civil Service Club @ Bukit Batok (members) | West | 4 | $6 | [Book](https://www.cscbukitbatok.sg/Pickleball-Courts-Corporate-Events-Bukit-Batok-Club-House-Civil-Service-Club) |
 | Civil Service Club @ Changi (members) | East | — | — | [Book](https://www.csc.sg/NewsDetails/102/pickleball-courts-at-csc) |
 | Singapore Swimming Club (members) | Central | — | $8 | [Book](https://sswimclub.org.sg/sport-facility/pickleball-court/) |
+| Tanah Merah Country Club (members) | East | 5 | — | [Book](https://www.tmcc.org.sg/facilities/sports-complex/) |
 
 ### Playtomic
 
@@ -83,6 +85,16 @@ Prices are SGD per court-hour at the cheapest public (or member) rate. Confirm d
 | MBP Sports @ Marina Square | Central | 4 | $32 | [Book](https://mbpsports.com/) |
 | The ARK Sports Village | West | 5 | $32.7 | [Book](https://theark.sg/pickleball/venue/-Ob1ylTZGkNp4wpHH_2j) |
 
+### onePA
+
+| Venue | Area | Courts | From | Booking link |
+|---|---|---|---|---|
+| Cairnhill Community Club | Central | — | $4 | [Book](https://www.onepa.gov.sg/facilities) |
+| Bishan Community Club | Central | — | $4 | [Book](https://www.onepa.gov.sg/facilities) |
+| Hillview Community Club | West | — | $4 | [Book](https://www.onepa.gov.sg/facilities) |
+| Hwi Yoh Community Club | North-East | — | $4 | [Book](https://www.onepa.gov.sg/facilities) |
+| Tampines North Community Club | East | — | $4 | [Book](https://www.onepa.gov.sg/facilities) |
+
 ### PlayByPoint
 
 | Venue | Area | Courts | From | Booking link |
@@ -92,21 +104,19 @@ Prices are SGD per court-hour at the cheapest public (or member) rate. Confirm d
 | SRC Franklin Pickleball Academy (members) | West | 9 | $20 | [Book](https://src.franklinpickleball.com.sg/book/FranklinPickleballSingapore) |
 | Republic of Singapore Yacht Club (members) | West | — | $25 | [Book](https://rsyc.org.sg/pickleball-badminton-court-booking/) |
 
-### onePA
-
-| Venue | Area | Courts | From | Booking link |
-|---|---|---|---|---|
-| Cairnhill Community Club | Central | — | $4 | [Book](https://www.onepa.gov.sg/facilities) |
-| Bishan Community Club | Central | — | $4 | [Book](https://www.onepa.gov.sg/facilities) |
-| Hillview Community Club | West | — | $4 | [Book](https://www.onepa.gov.sg/facilities) |
-| Hwi Yoh Community Club | North-East | — | $4 | [Book](https://www.onepa.gov.sg/facilities) |
-
 ### ProBuddy
 
 | Venue | Area | Courts | From | Booking link |
 |---|---|---|---|---|
 | Racket Jungle @ Dempsey | Central | 4 | $35 | [Book](https://www.probuddy.io/) |
 | Racket Jungle @ Telok Ayer Roof Terrace | Central | 2 | $29 | [Book](https://www.probuddy.io/l/6531e2ed-f10c-4911-92b4-4721323dcbbc) |
+
+### Phone / WhatsApp
+
+| Venue | Area | Courts | From | Booking link |
+|---|---|---|---|---|
+| One Fullerton Rooftop Court (paused) | Central | 1 | $40 | [Book](https://www.fullertonhotels.com/fullerton-hotel-singapore/facilities/pickleball) |
+| Our Tampines Hub | East | 3 | — | [Book](https://www.pickleheads.com/courts/sg/singapore/singapore/our-tampines-hub) |
 
 ### The Kallang (PerfectGym)
 
@@ -132,12 +142,6 @@ Prices are SGD per court-hour at the cheapest public (or member) rate. Confirm d
 |---|---|---|---|---|
 | Pickleball @ New Bahru | Central | 2 | $38 | [Book](https://app.acuityscheduling.com/schedule.php?owner=33373361) |
 
-### Phone / WhatsApp
-
-| Venue | Area | Courts | From | Booking link |
-|---|---|---|---|---|
-| One Fullerton Rooftop Court (paused) | Central | 1 | $40 | [Book](https://www.fullertonhotels.com/fullerton-hotel-singapore/facilities/pickleball) |
-
 ## Finding games rather than courts
 
 - [Reclub](https://reclub.co/) — Open-play sessions and club games run by local organisers.
@@ -146,7 +150,9 @@ Prices are SGD per court-hour at the cheapest public (or member) rate. Confirm d
 
 ## What "live" means for each system
 
-- **Playtomic**: open slots per club are published without sign-in. `lib/provider-engine.js` has a `playtomic` adapter that turns them into free-court counts per hour. Run `node scripts/find-playtomic-tenants.js --write` from a machine with internet access to look up each club ID and write `data/providers.json`; the server picks it up on restart.
-- **CourtReserve, PlayByPoint, Rezerv, Smashing.sg, The Kallang**: schedules sit behind a login or have no public API. Ask the venue for a feed that follows `docs/provider-feed-contract.md` and add it to `data/providers.json`.
+- **Playtomic**: open slots per club are published without sign-in. The `playtomic` adapter in `lib/provider-engine.js` turns them into free-court counts per hour. Run `npm run playtomic:tenants` from a machine with internet access to look up each club ID and write `data/providers.json`; the server picks it up on restart.
+- **PlayByPoint**: an official API (developer preview, `https://api.playbypoint.com/v1`) lists free courts for a time window. The `playbypoint` adapter asks hour by hour with a venue-issued API key and the `X-PBP-Facility-Id` header. It was built from the published reference and still needs a first run against a real key.
+- **CourtReserve**: an official API (HTTP Basic auth with an `Org_…` username) exists for venues on the Scale or Enterprise plans. Ask the venue for read-only credentials or a feed that follows `docs/provider-feed-contract.md`.
+- **Rezerv, Smashing.sg, The Kallang**: schedules sit behind a login or have no public API. Ask the venue for a feed that follows `docs/provider-feed-contract.md`.
 - **MyActiveSG+**: availability requires Singpass login and the terms of use prohibit bots, so DinkWhere links to the [ActiveSG pickleball venue list](https://activesg.gov.sg/facility-bookings/activities/BPQihVHITc7IPGorVeB2Y/venues) rather than reading it. A live feed would need an agreement with Sport Singapore.
 - **Club portals, onePA, apps, phone**: linked directly.

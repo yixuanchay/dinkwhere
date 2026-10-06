@@ -16,7 +16,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/leaflet.css" />
-    <link rel="stylesheet" href="styles.css?v=9" />
+    <link rel="stylesheet" href="styles.css?v=10" />
   </head>
   <body>
     <header class="site-header">
@@ -108,7 +108,7 @@
             </button>
             <button data-view="timeline">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v15H4zM4 10h16M9 5v15M15 5v15"/></svg>
-              Timeline
+              Week
             </button>
           </div>
         </div>
@@ -162,6 +162,8 @@
           Loading venues and availability feeds…
         </div>
 
+        <div class="date-strip" id="date-strip" aria-label="Choose a date"></div>
+
         <div class="court-layout" id="court-layout">
           <div class="court-list">
             <div class="results-meta">
@@ -192,8 +194,8 @@
         <div class="timeline-panel" id="timeline-panel" hidden>
           <div class="timeline-head">
             <div>
-              <h3>Open courts by hour</h3>
-              <p id="timeline-date"></p>
+              <h3>Open times this week</h3>
+              <p>Numbers show how many start times are open each day. Pick a day to see it hour by hour.</p>
             </div>
             <div class="timeline-key">
               <span><i class="cell-key none"></i> Full</span>
@@ -202,6 +204,11 @@
             </div>
           </div>
           <div class="timeline-scroll"><div id="timeline-grid"></div></div>
+          <div class="timeline-hours" id="timeline-hours-wrap">
+            <h4 id="timeline-day-title"></h4>
+            <p>Numbers show free courts. Tap one to book.</p>
+            <div class="timeline-scroll"><div id="timeline-hours"></div></div>
+          </div>
           <div class="timeline-direct">
             <h4>Check these directly</h4>
             <p>These venues don't share live times yet. Each link opens the right booking page.</p>
@@ -354,7 +361,8 @@
 
     <div class="toast" id="toast" role="status"></div>
     <script src="assets/leaflet.js"></script>
-    <script src="app.js?v=4"></script>
-    <script src="community.js?v=10"></script>
+    <script src="map.js?v=1"></script>
+    <script src="app.js?v=5"></script>
+    <script src="community.js?v=11"></script>
   </body>
 </html>

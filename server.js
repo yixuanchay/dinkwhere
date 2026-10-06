@@ -7,6 +7,7 @@ const { PostgresDinkWhereDatabase } = require("./lib/postgres-database");
 const { verifyFirebaseIdToken } = require("./lib/firebase-auth");
 const {
   ProviderEngine,
+  dateRange,
   readProviderConfig,
   todayInTimezone,
   validDate,
@@ -207,7 +208,7 @@ function httpError(status, message) {
 
 function serveFile(requestPath, response) {
   const relativePath = requestPath === "/" ? "index.html" : decodeURIComponent(requestPath.slice(1));
-  const publicFiles = new Set(["index.html", "app.js", "community.js", "styles.css"]);
+  const publicFiles = new Set(["index.html", "app.js", "community.js", "map.js", "styles.css"]);
   const isPublicFile = publicFiles.has(relativePath);
   const isPublicAsset = relativePath.startsWith("assets/");
   const isUpload = relativePath.startsWith("uploads/");
@@ -256,8 +257,9 @@ async function requestHandler(request, response) {
         sendJson(response, 400, { error: "date must use YYYY-MM-DD" });
         return;
       }
-      await engine.refreshDate(date);
-      sendJson(response, 200, engine.payload(date, snapshots));
+      const dates = dateRange(date, url.searchParams.get("days") || 1);
+      await engine.refreshRange(dates);
+      sendJson(response, 200, engine.rangePayload(dates, snapshots));
       return;
     }
     if (request.method === "GET" && url.pathname === "/api/venues") {
@@ -340,6 +342,11 @@ async function requestHandler(request, response) {
     }
     if (request.method === "GET" && url.pathname === "/api/auth/me") {
       sendJson(response, 200, { user: await currentUser(request) });
+      return;
+    }
+    if (request.method === "GET" && url.pathname === "/api/map-config") {
+      // A browser key restricted to this site's domains; it is public by design.
+      sendJson(response, 200, { googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || null });
       return;
     }
     if (request.method === "GET" && url.pathname === "/api/auth/firebase-config") {

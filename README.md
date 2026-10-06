@@ -82,12 +82,13 @@ production or attempt to store production uploads under `uploads/`.
 
 ## Current scope
 
-- A directory of 49 bookable pickleball venues across 13 booking systems
+- A directory of 53 bookable pickleball venues across 13 booking systems
   (`data/venues.json`, served at `GET /api/venues`). The full list is in
   `docs/booking-sources.md`.
-- List, map and timeline views. The timeline shows free courts per hour for
-  every venue with a live feed, and lists every other venue with a direct link
-  to its booking page.
+- Open times grouped by date for the next 7 days, with a date picker strip.
+- List, map and week views. The week view shows open times per day for every
+  venue with a live feed, then hour by hour for the chosen day, and lists every
+  other venue with a direct link to its booking page.
 - A "Where to book" section describing each booking system and how DinkWhere
   connects to it.
 - An island-wide community hard-court candidate map seeded from OpenStreetMap.
@@ -114,12 +115,33 @@ booking system can be connected:
 
   This looks up each Playtomic venue's tenant ID and writes
   `data/providers.json`. The server loads that file automatically on start.
-- `venue_feed`: CourtReserve, PlayByPoint, Rezerv, Smashing.sg and The Kallang
-  have no public API. Live counts need a feed approved by the venue, following
+- PlayByPoint has an official API (developer preview). With an API key issued
+  by the venue, the `playbypoint` adapter asks for free courts hour by hour.
+  See the example in `data/providers.example.json`.
+- `venue_feed`: CourtReserve has an official API for venues on its Scale or
+  Enterprise plans; Rezerv, Smashing.sg and The Kallang have no public API. Live counts need a feed approved by the venue, following
   `docs/provider-feed-contract.md`.
 - `deep_link`: MyActiveSG+ needs Singpass login and its terms prohibit
   automated access, so the site links to the ActiveSG pickleball venue list.
   Club portals, onePA, apps and phone-only venues are also linked directly.
+
+`GET /api/availability?date=YYYY-MM-DD&days=7` returns up to 14 days in one
+response.
+
+## Maps
+
+Both maps use Google Maps when `GOOGLE_MAPS_API_KEY` is set:
+
+1. In Google Cloud, enable the **Maps JavaScript API** and create an API key.
+2. Restrict the key to **Websites** and add your domains (for example
+   `localhost:4173/*` and `*.vercel.app/*`), and to the Maps JavaScript API.
+3. Add `GOOGLE_MAPS_API_KEY=...` to `.env` locally and to the Vercel project.
+
+Without a key, or if Google rejects it, the maps fall back to Leaflet with CARTO
+Voyager tiles, drawn over Singapore's planning regions
+(`assets/singapore-regions.json`, simplified from the Master Plan 2014 region
+boundary on data.gov.sg). Every venue card and pin has a Google Maps
+directions link either way.
 
 The Play! Pickle Punggol snapshot in `data/availability-snapshots.json` is still
 served for its capture date, 9 June 2026.

@@ -4,8 +4,6 @@
     filtered: [],
     selectedCourt: null,
     map: null,
-    markerLayer: null,
-    focusedMarker: null,
     mapLoaded: false,
     community: { reviews: {}, reports: {} },
     user: null,
@@ -163,18 +161,11 @@
     return "#243f35";
   }
 
-  function initializeMap() {
-    if (!window.L) throw new Error("The free map library could not load.");
-    state.map = L.map("community-map-canvas", {
-      minZoom: 10,
-      maxBounds: [[1.12, 103.52], [1.52, 104.15]],
-      maxBoundsViscosity: 0.7,
-    }).setView([1.3521, 103.8198], 11);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(state.map);
-    state.markerLayer = L.layerGroup().addTo(state.map);
+  async function initializeMap() {
+    if (!window.DinkMap) throw new Error("The map could not load.");
+    state.map = await DinkMap.create(document.querySelector("#community-map-canvas"), {
+      scrollWheelZoom: true,
+    });
     state.mapLoaded = true;
   }
 
@@ -189,20 +180,18 @@
   }
 
   function renderMarkers() {
-    if (!state.mapLoaded || !state.markerLayer) return;
-    state.markerLayer.clearLayers();
-    state.filtered.forEach((court) => {
-      L.circleMarker([court.lat, court.lon], {
-        radius: court.source === "Community" ? 7 : 5,
-        color: "#ffffff",
-        weight: court.source === "Community" ? 2.5 : 1.5,
-        fillColor: markerColor(court.id),
-        fillOpacity: 0.92,
-      })
-        .bindTooltip(court.name, { direction: "top" })
-        .on("click", () => openCourt(court.id))
-        .addTo(state.markerLayer);
-    });
+    if (!state.mapLoaded) return;
+    state.map.setMarkers(state.filtered.map((court) => ({
+      id: court.id,
+      lat: court.lat,
+      lon: court.lon,
+      shape: "dot",
+      size: court.source === "Community" ? 7 : 5,
+      strokeWeight: court.source === "Community" ? 2.5 : 1.5,
+      color: markerColor(court.id),
+      title: court.name,
+      onClick: () => openCourt(court.id),
+    })));
   }
 
   function focusCourtOnMap(court) {
@@ -218,24 +207,12 @@
       block: "start",
     });
     window.setTimeout(() => {
-      state.map.invalidateSize();
-      state.map.setView([court.lat, court.lon], 18, { animate: true });
-      if (state.focusedMarker) state.map.removeLayer(state.focusedMarker);
-      state.focusedMarker = L.circleMarker([court.lat, court.lon], {
-        radius: 15,
-        color: "#b6ff3b",
-        weight: 5,
-        fillColor: markerColor(court.id),
-        fillOpacity: 0.9,
-        className: "court-focus-ring",
-      })
-        .bindTooltip(court.name, {
-          direction: "top",
-          permanent: true,
-          offset: [0, -12],
-        })
-        .addTo(state.map)
-        .openTooltip();
+      state.map.resize();
+      state.map.setView(court.lat, court.lon, 18);
+      state.map.highlight(court.lat, court.lon, {
+        color: markerColor(court.id),
+        label: escapeHtml(court.name),
+      });
     }, 450);
   }
 
@@ -290,9 +267,9 @@
     renderMarkers();
     renderList();
     if (fitMap && state.mapLoaded && state.filtered.length) {
-      state.map.fitBounds(
-        L.latLngBounds(state.filtered.map((court) => [court.lat, court.lon])),
-        { padding: [45, 45], maxZoom: 15 },
+      state.map.fit(
+        state.filtered.map((court) => [court.lat, court.lon]),
+        { padding: 45, maxZoom: 15 },
       );
     }
   }
@@ -713,12 +690,12 @@
     addCourtButton.classList.add("placing");
     document.querySelector("#community-map-canvas").classList.add("placing-court");
     notify("Click the exact court location on the map.");
-    state.map.once("click", (event) => {
-      state.pendingCourtLocation = event.latlng;
+    state.map.onceClick((latlng) => {
+      state.pendingCourtLocation = latlng;
       addCourtButton.textContent = "+ Add a court";
       addCourtButton.classList.remove("placing");
       document.querySelector("#community-map-canvas").classList.remove("placing-court");
-      renderAddCourtForm(event.latlng);
+      renderAddCourtForm(latlng);
       addCourtDialog.showModal();
     });
   }
@@ -955,7 +932,7 @@
       totalCount.textContent = state.courts.length;
       populateTowns();
       applyFilters();
-      state.map.setView([result.court.lat, result.court.lon], 17);
+      state.map.setView(result.court.lat, result.court.lon, 17);
       addCourtDialog.close();
       notify("Court added to the community map.");
       openCourt(result.court.id);
@@ -994,7 +971,7 @@
       };
       totalCount.textContent = state.courts.length;
       renderAccountButton();
-      initializeMap();
+      await initializeMap();
       populateTowns();
       applyFilters();
     } catch (error) {
