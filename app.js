@@ -71,6 +71,7 @@ function statusLabel(status) {
     live: "Live",
     cached: "Recently updated",
     snapshot: "Snapshot",
+    sample: "Sample data",
   }[status] || "Unverified";
 }
 
